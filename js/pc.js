@@ -36,6 +36,7 @@ define([], function(){
 		$(".icon-wrap").eq(idx).removeClass("hide");
 	}
 
+	
 	var bind = function(){
 		var switchBtn = $("#myonoffswitch");
 		var tagcloud = $(".second-part");

@@ -14,7 +14,7 @@ require([], function (){
 			isPCInit = true;
 		});
 	}
-
+	
 	var browser={
 	    versions:function(){
 	    var u = window.navigator.userAgent;
