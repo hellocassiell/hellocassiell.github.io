@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用HTML5 Geolocation实现一个距离追踪器 | Despacito Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTML5 Geolocation（地理定位）用于定位用户的位置。那么如何实现一个距离追踪器呢？我的思路是这样的，前提是浏览器支持h5地理定位，在这个基础上，获取用户位置，更新用户位置，计算距离，显示到页面，这样就简单实现了一个距离追踪器，为了用户更清楚地看到当前位置，这里接入了百度地图API。 页面结构如下所示：1234567891011121314151617181920&amp;lt;div id=">
+<meta name="keywords" content="html5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用HTML5 Geolocation实现一个距离追踪器">
+<meta property="og:url" content="http://hellocassie.cn/h5距离追踪器/index.html">
+<meta property="og:site_name" content="Despacito Blog">
+<meta property="og:description" content="HTML5 Geolocation（地理定位）用于定位用户的位置。那么如何实现一个距离追踪器呢？我的思路是这样的，前提是浏览器支持h5地理定位，在这个基础上，获取用户位置，更新用户位置，计算距离，显示到页面，这样就简单实现了一个距离追踪器，为了用户更清楚地看到当前位置，这里接入了百度地图API。 页面结构如下所示：1234567891011121314151617181920&amp;lt;div id=">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ozlrrk52c.bkt.clouddn.com/%E5%9C%B0%E7%90%86%E5%AE%9A%E4%BD%8D.png">
+<meta property="og:updated_time" content="2018-04-06T07:17:59.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用HTML5 Geolocation实现一个距离追踪器">
+<meta name="twitter:description" content="HTML5 Geolocation（地理定位）用于定位用户的位置。那么如何实现一个距离追踪器呢？我的思路是这样的，前提是浏览器支持h5地理定位，在这个基础上，获取用户位置，更新用户位置，计算距离，显示到页面，这样就简单实现了一个距离追踪器，为了用户更清楚地看到当前位置，这里接入了百度地图API。 页面结构如下所示：1234567891011121314151617181920&amp;lt;div id=">
+<meta name="twitter:image" content="http://ozlrrk52c.bkt.clouddn.com/%E5%9C%B0%E7%90%86%E5%AE%9A%E4%BD%8D.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Despacito Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="google-site-verification" content="SJrrucUlOVnExtrPtDgervvLXm4dWS90P4srRT8njfw" />
+  <meta name="baidu-site-verification" content="i1jenkuRPy" />
+  <script type="text/javascript" src="/js/echarts.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.githubRepoWidget.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">  
+  
+</head>
+<body>
+  
+  <div id="container">
+    <div class="left-col">
+        <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/face.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Despacito</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">想和你分享这漫长的一生</p>
+				
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/collection">收藏夹</a></li>
+				        
+							<li><a href="/photo">图集</a></li>
+				        
+							<li><a href="/about">留言板</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hellocassiell" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:justincassiell@gmail.com" title="mail">mail</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/justin.cassie.3" title="facebook">facebook</a>
+					        
+								<a class="wymusic" target="_blank" href="https://music.163.com/#/user/home?id=337653262" title="wymusic">wymusic</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/js/" style="font-size: 20px;">js</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://forwe.club/">club</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+		</header>	
+		
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Despacito</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/face.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Despacito</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">想和你分享这漫长的一生</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/collection">收藏夹</a></li>
+		        
+					<li><a href="/photo">图集</a></li>
+		        
+					<li><a href="/about">留言板</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hellocassiell" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:justincassiell@gmail.com" title="mail">mail</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/justin.cassie.3" title="facebook">facebook</a>
+			        
+						<a class="wymusic" target="_blank" href="https://music.163.com/#/user/home?id=337653262" title="wymusic">wymusic</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-h5距离追踪器" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+		<a href="/h5距离追踪器/" class="article-date">
+  	<time datetime="2018-04-06T07:16:26.242Z" itemprop="datePublished">2018-04-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+	  
+  
+    <h1 class="article-title" itemprop="name">
+      用HTML5 Geolocation实现一个距离追踪器
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/html5/">html5</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>HTML5 Geolocation（地理定位）用于定位用户的位置。那么如何实现一个距离追踪器呢？我的思路是这样的，前提是浏览器支持h5地理定位，在这个基础上，获取用户位置，更新用户位置，计算距离，显示到页面，这样就简单实现了一个距离追踪器，为了用户更清楚地看到当前位置，这里接入了百度地图API。</p>
+<p>页面结构如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;container&quot;&gt;</span><br><span class="line">			&lt;section&gt;</span><br><span class="line">				&lt;article&gt;</span><br><span class="line">					&lt;header&gt;</span><br><span class="line">						&lt;h1&gt;Your Location&lt;/h1&gt;</span><br><span class="line">					&lt;/header&gt;</span><br><span class="line">					&lt;p class=&quot;info&quot; id=&quot;status&quot;&gt;您的浏览器不支持HTML5 Geolocation。&lt;/p&gt;</span><br><span class="line">					&lt;div class=&quot;geostatus&quot;&gt;</span><br><span class="line">						&lt;p id=&quot;latitude&quot;&gt;纬度:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;longitude&quot;&gt;经度:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;accuracy&quot;&gt;准确度:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;timestamp&quot;&gt;时间戳:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;currDist&quot;&gt;目前旅行距离:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;totalDist&quot;&gt;旅行总距离:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">					&lt;/div&gt;</span><br><span class="line">				&lt;/article&gt;</span><br><span class="line">			&lt;/section&gt;</span><br><span class="line">			&lt;!-- 百度地图位置显示 --&gt;</span><br><span class="line">			&lt;div id=&quot;allmap&quot;&gt;&lt;/div&gt;    </span><br><span class="line">		&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="判断浏览器是否支持HTML5-Geolocation"><a href="#判断浏览器是否支持HTML5-Geolocation" class="headerlink" title="判断浏览器是否支持HTML5 Geolocation"></a>判断浏览器是否支持HTML5 Geolocation</h2><p>在body加载时调用loadDemo()方法，方法根据navigator.geolocation来判断浏览器是否支持HTML5 Geolocation；如果navigator.geolocation为true，那么我们就可以开始对用户位置进行获取更新</p>
+<h2 id="实时获取用户位置"><a href="#实时获取用户位置" class="headerlink" title="实时获取用户位置"></a>实时获取用户位置</h2><p>HTML5可以通过getCurrentPosition() 方法来获得用户的位置。但这个只获取一次，所以我们选用了<br>watchPosition()这个方法，它能返回用户的当前位置，并继续返回用户移动时的更新位置（就像汽车上的GPS）。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">navigator.geolocation.watchPosition(updateLocation, handleLocationError, &#123;</span><br><span class="line">						timeout: 10000</span><br><span class="line">					&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在不断获取位置的同时，调用updateLocation这个方法，把位置情况显示在页面上，当然还要调用计算距离的方法来获取距离，以及不断更新百度地图上的位置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var latitude = position.coords.latitude;</span><br><span class="line">				var longitude = position.coords.longitude;</span><br><span class="line">				var accuracy = position.coords.accuracy;</span><br><span class="line">				var timestamp = position.timestamp;</span><br><span class="line">				document.getElementById(&quot;latitude&quot;).innerHTML = &quot;纬度:&amp;nbsp;&amp;nbsp;&quot; + latitude;</span><br><span class="line">				document.getElementById(&quot;longitude&quot;).innerHTML = &quot;经度:&amp;nbsp;&amp;nbsp;&quot; + longitude;</span><br><span class="line">				document.getElementById(&quot;accuracy&quot;).innerHTML = &quot;准确度:&amp;nbsp;&amp;nbsp;&quot; + accuracy;</span><br><span class="line">				document.getElementById(&quot;timestamp&quot;).innerHTML = &quot;时间戳:&amp;nbsp;&amp;nbsp;&quot; + timestamp;</span><br><span class="line">				if(accuracy &gt;= 30000) &#123;</span><br><span class="line">					updateStatus(&quot;Need more accurate values to calculate distance.&quot;);</span><br><span class="line">					return;</span><br><span class="line">				&#125;</span><br><span class="line">				if((lastLat != null) &amp;&amp; (lastLong != null)) &#123;</span><br><span class="line">					var currentDistance = distance(latitude, longitude, lastLat, lastLong);</span><br><span class="line">					document.getElementById(&quot;currDist&quot;).innerHTML = &quot;目前旅行距离:&amp;nbsp;&amp;nbsp;&quot; + currentDistance.toFixed(2) + &quot;km&quot;;</span><br><span class="line">					totalDistance += currentDistance;</span><br><span class="line">					document.getElementById(&quot;totalDist&quot;).innerHTML = &quot;旅行总距离:&amp;nbsp;&amp;nbsp;&quot; + currentDistance.toFixed(2) + &quot;km&quot;;</span><br><span class="line">					updateStatus(&quot;Location successfully updated.&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">				lastLat = latitude;</span><br><span class="line">				lastLong = longitude;</span><br></pre></td></tr></table></figure></p>
+<h2 id="计算距离"><a href="#计算距离" class="headerlink" title="计算距离"></a>计算距离</h2><p>把开始位置和当前位置的经度纬度作为参数放入函数，通过换算，来计算距离（单位为km)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Number.prototype.toRadians = function() &#123;</span><br><span class="line">				return this * Math.PI / 180;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">function distance(latitude1, longitude1, latitude2, longitude2) &#123;</span><br><span class="line">				var R = 6371;</span><br><span class="line">				var deltaLatitude = (latitude2 - latitude1).toRadians();</span><br><span class="line">				var deltaLongitude = (longitude2 - longitude1).toRadians();</span><br><span class="line">				latitude1 = latitude1.toRadians(), latitude2 = latitude2.toRadians();</span><br><span class="line">				var a = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2);</span><br><span class="line">				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));</span><br><span class="line">				var d = R * c;</span><br><span class="line">				return d;</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="百度地图API接入"><a href="#百度地图API接入" class="headerlink" title="百度地图API接入"></a>百度地图API接入</h2><p>要用百度地图API，你需要注册百度账号，申请成为百度开发者然后获取一个密钥，才能使用相关服务<br> <a href="http://lbsyun.baidu.com/index.php?title=jspopular" target="_blank" rel="noopener">戳这</a> 根据文档你可以知道如何使用这个API<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var map = new BMap.Map(&quot;allmap&quot;); // 创建Map实例</span><br><span class="line">			map.centerAndZoom(new BMap.Point(longitude, latitude), 14); //设置中心点坐标和地图级别</span><br><span class="line">			map.addControl(new BMap.MapTypeControl()); //添加地图类型控件</span><br><span class="line">			map.setCurrentCity(&quot;南昌&quot;); //显示城市,此项必须设置</span><br><span class="line">			map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放</span><br><span class="line">			// 以下为当前位置标注设置</span><br><span class="line">			var point = new BMap.Point(longitude, latitude);</span><br><span class="line">			map.centerAndZoom(point, 14);</span><br><span class="line">			var marker = new BMap.Marker(point); //创建标注</span><br><span class="line">			map.addOverlay(marker); //将标注添加到地图中</span><br><span class="line">			marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画</span><br><span class="line">			// 百度地图API功能--------end</span><br></pre></td></tr></table></figure></p>
+<p>记得先引入一个script标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;http://api.map.baidu.com/api?v=2.0&amp;ak=你的密钥&quot; &gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p><img src="http://ozlrrk52c.bkt.clouddn.com/%E5%9C%B0%E7%90%86%E5%AE%9A%E4%BD%8D.png" alt=""></p>
+<p><a href="https://hellocassie.cn">我的博客</a>，欢迎交流！<br><a href="https://github.com/hellocassiell/H5-Pedometer" target="_blank" rel="noopener">源码戳这</a></p>
+
+      
+	  <div id="back-to-top" data-scroll="body">
+        <a href="#top" style="color:white"></a>
+      </div>
+    </div>
+    
+  </div>
+  
+    
+<div class="copyright">
+  <p><span>本文标题:</span><a href="/h5距离追踪器/">用HTML5 Geolocation实现一个距离追踪器</a></p>
+  <p><span>文章作者:</span>
+  	<a href="/" title="访问 Despacito 的个人博客">Despacito</a>
+  	<a href="https://github.com/airingursb" title="访问 Despacito 的GitHub"><i class="fa fa-github-alt"></i></a>
+  </p>
+  <p><span>发布时间:</span>2018年04月06日 - 15时16分</p>
+  <p><span>最后更新:</span>2018年04月06日 - 15时17分</p>
+  <p>
+    <span>原始链接:</span><a class="post-url" href="/h5距离追踪器/" title="用HTML5 Geolocation实现一个距离追踪器">http://hellocassie.cn/h5距离追踪器/</a>
+    <span class="copy-path" data-clipboard-text="原文: http://hellocassie.cn/h5距离追踪器/　　作者: Despacito" title="点击复制文章链接">
+        <i class="fa fa-clipboard"></i>
+    </span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。</p>
+  <script src="/js/clipboard.min.js"></script>
+  <script> var clipboard = new Clipboard('.copy-path'); </script>
+</div>
+
+
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/Javascript面向对象与继承/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Javascript面向对象与继承</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+  </article>
+
+
+
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <li id="bds_twi"><a href="#" class="bds_twi" data-cmd="twi" title="分享到推特"></a></li>
+            <li id="bds_tsina"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a></li>
+            <li id="bds_sqq"><a href="#" class="bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a></li>
+            <li id="bds_copy"><a href="#" class="bds_copy" data-cmd="copy" title="复制网址"></a></li>
+            <li id="bds_mail"><a href="#" class="bds_mail" data-cmd="mail" title="通过邮件分享"></a></li>
+            <li id="bds_weixin"><a href="#" class="bds_weixin" data-cmd="weixin" title="生成文章二维码"></a></li>
+            <li id="bds_more"><a href="#" class="bds_more" data-cmd="more"></i></a></li>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"用HTML5 Geolocation实现一个距离追踪器　| Despacito Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+</div>
+
+
+
+
+
+
+
+<div class="duoshuo">
+	<span style="font-size:14px; margin:3px auto">最近访客</span>
+	<hr size=1 style="color:#ff9999;border-style:double;color:#CCC"> 
+	<div class="ds-recent-visitors" style="background: rgba(255, 255, 255, .2);" data-num-items="60" data-avatar-size="42" id="ds-recent-visitors"></div>
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="h5距离追踪器" data-title="用HTML5 Geolocation实现一个距离追踪器" data-url="http://hellocassie.cn/h5距离追踪器/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"airingursb"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		//ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.src = 'http://ursb.me/js/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="outer">
+  	<div id="footer-info">
+		<span id="span_dt_dt"></span>
+		<span class="my-face">(●'◡'●)ﾉ♥</span>
+	</div>
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Despacito
+			<i class="fa fa-heart animated infinite pulse"></i>
+		</div>
+      	<div class="footer-right">
+		    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258655927'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258655927' type='text/javascript'%3E%3C/script%3E"));</script>
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="#" target="_blank"></a>
+      	</div>
+		<div id="footer-time">
+			<span id="busuanzi_container_site_pv">
+	    		本站总访问量<span id="busuanzi_value_site_pv"></span>次
+			</span>
+			<span id="busuanzi_container_page_pv">
+	  			本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	  		</span>
+		</div>
+    </div>
+  </div>
+  <script> 
+  $(document).ready(function ($) {
+    // 利用 data-scroll 属性，滚动到任意 dom 元素
+    $.scrollto = function (scrolldom, scrolltime) {
+        $(scrolldom).click(function () {
+            var scrolltodom = $(this).attr("data-scroll");
+            $(this).addClass("active").siblings().removeClass("active");
+            $('html, body').animate({
+                scrollTop: $(scrolltodom).offset().top
+            }, scrolltime);
+            return false;
+        });
+    };
+    // 判断位置控制 返回顶部的显隐
+    if ($(window).width() > 800) {
+        var backTo = $("#back-to-top");
+        var backHeight = $(window).height() - 980 + 'px';
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 700 && backTo.css('top') === '-900px') {
+                backTo.css('top', backHeight);
+            }
+            else if ($(window).scrollTop() <= 700 && backTo.css('top') !== '-900px') {
+                backTo.css('top', '-900px');
+            }
+        });
+    }
+    // 启用
+    $.scrollto("#back-to-top", 800);
+	
+	show_date_time();
+	
+	$("html,body").click(function(e){
+	var n=Math.round(Math.random()*100);//随机数
+	var $i=$("<b/>").text("+"+n);//添加到页面的元素
+	var x=e.pageX,y=e.pageY;//鼠标点击的位置
+	$i.css({
+		"z-index":99999,
+		"top":y-20,
+		"left":x,
+		"position":"absolute",
+		"color":"#E94F06"
+	});
+	$("body").append($i);
+	$i.animate(
+		{"top":y-180,"opacity":0},
+		1500,
+		function(){$i.remove();}
+	);
+	e.stopPropagation();
+	});
+  });
+  
+  	
+	function show_date_time() {
+	    window.setTimeout("show_date_time()", 1000);
+	    var BirthDay = new Date("December 4, 2014 21:12:00");
+	    var today = new Date();
+	    var timeold = (today.getTime() - BirthDay.getTime());
+	    var msPerDay = 24 * 60 * 60 * 1000;
+	    var e_daysold = timeold / msPerDay;
+	    var daysold = Math.floor(e_daysold);
+	    var e_hrsold = (e_daysold - daysold) * 24;
+	    var hrsold = Math.floor(e_hrsold);
+	    var e_minsold = (e_hrsold - hrsold) * 60;
+	    var minsold = Math.floor((e_hrsold - hrsold) * 60);
+	    var seconds = Math.floor((e_minsold - minsold) * 60);
+	    span_dt_dt.innerHTML = "博客已萌萌哒运行了" + daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "秒";
+	}
+  </script>
+</footer>
+
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
