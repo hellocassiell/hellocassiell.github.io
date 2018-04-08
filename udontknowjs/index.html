@@ -5,18 +5,18 @@
   
   <title>YouDon&#39;tKnowJS记录（一） | Despacito Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言    编译器（语法分析和代码生成）var a = 2;  编译器将它分解为var, a, =, 2, 这么几个词法单元，再将词法单元解析成一个树结构代码生成： 在当前作用域声明一个变量a, 运行时引擎在作用域中查找变量a， 若能找到则赋值 引擎LHS查询  找到变量容器本身，从而可以对其赋值  eg: a =">
+  <meta name="description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="YouDon&#39;tKnowJS记录（一）">
 <meta property="og:url" content="http://hellocassie.cn/udontknowjs/index.html">
 <meta property="og:site_name" content="Despacito Blog">
-<meta property="og:description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言    编译器（语法分析和代码生成）var a = 2;  编译器将它分解为var, a, =, 2, 这么几个词法单元，再将词法单元解析成一个树结构代码生成： 在当前作用域声明一个变量a, 运行时引擎在作用域中查找变量a， 若能找到则赋值 引擎LHS查询  找到变量容器本身，从而可以对其赋值  eg: a =">
+<meta property="og:description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-05T16:17:34.705Z">
+<meta property="og:updated_time" content="2018-04-08T13:52:22.286Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="YouDon&#39;tKnowJS记录（一）">
-<meta name="twitter:description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言    编译器（语法分析和代码生成）var a = 2;  编译器将它分解为var, a, =, 2, 这么几个词法单元，再将词法单元解析成一个树结构代码生成： 在当前作用域声明一个变量a, 运行时引擎在作用域中查找变量a， 若能找到则赋值 引擎LHS查询  找到变量容器本身，从而可以对其赋值  eg: a =">
+<meta name="twitter:description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
   
     <link rel="alternative" href="/atom.xml" title="Despacito Blog" type="application/atom+xml">
   
@@ -237,7 +237,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="作用域和闭包"><a href="#作用域和闭包" class="headerlink" title="作用域和闭包"></a>作用域和闭包</h1><h2 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h2><p>(根据名称查找变量的一套规则)<br>js 动态的 弱类型的 编译语言   </p>
+        <h1 id="作用域和闭包"><a href="#作用域和闭包" class="headerlink" title="作用域和闭包"></a>作用域和闭包</h1><h2 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h2><p>(根据名称查找变量的一套规则)<br>js 动态的 弱类型的 编译语言<br><a id="more"></a></p>
 <h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>（语法分析和代码生成）<br>var a = 2;  编译器将它分解为var, a, =, 2, 这么几个词法单元，再将词法单元解析成一个树结构<br>代码生成： 在当前作用域声明一个变量a, 运行时引擎在作用域中查找变量a， 若能找到则赋值</p>
 <h3 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h3><p>LHS查询  找到变量容器本身，从而可以对其赋值  eg: a = 2;<br>RHS查询  取到它的源值   eg: foo(2);</p>
 <p>(最好先在开头把变量全都声明   var a, b, c, d;)</p>
@@ -280,7 +280,7 @@
   	<a href="https://github.com/airingursb" title="访问 Despacito 的GitHub"><i class="fa fa-github-alt"></i></a>
   </p>
   <p><span>发布时间:</span>2017年11月18日 - 09时59分</p>
-  <p><span>最后更新:</span>2018年04月06日 - 00时17分</p>
+  <p><span>最后更新:</span>2018年04月08日 - 21时52分</p>
   <p>
     <span>原始链接:</span><a class="post-url" href="/udontknowjs/" title="YouDon&#39;tKnowJS记录（一）">http://hellocassie.cn/udontknowjs/</a>
     <span class="copy-path" data-clipboard-text="原文: http://hellocassie.cn/udontknowjs/　　作者: Despacito" title="点击复制文章链接">
