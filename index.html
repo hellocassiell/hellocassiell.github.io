@@ -30,24 +30,47 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">  
   <style>
-    .overview {
+    #overview {
         width: 100%;
         height: 100%;
-        background-color: pink;
-        text-align: center
+        display: block;
+        background: url(background/1.jpg) no-repeat;
+        background-size: cover;
+		position: fixed;
+        
+    }
+    #overview h2 {
+        color: palevioletred;
+        font-family: '宋体';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 35%;
+        
     }
     .beginIt {
-        width: 140px;
-        height: 100px;
+        width: 160px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+        display: block;
+        left: 50%;
+        margin-left: -70px;
+		position: absolute;
+		top: 80%;
+		background: rgba(255, 255, 255, 0);
         border: 1px solid #fff;
+        border-radius: 10px;
         color: #fff;
     }
     </style>
 </head>
 <body>
-  <div class="overview">
-		<button class="beginIt">begin it</button>
-</div>
+	<div id="overview">
+    <h2>欢迎来到我的小站～</h2>
+		<button class="beginIt" onclick="document.getElementById('overview').style.display='none'">Begin It</button>
+  </div>
   <div id="container">
     <div class="left-col">
         <div class="overlay"></div>
