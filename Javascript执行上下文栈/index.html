@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>YouDon&#39;tKnowJS记录（一） | Despacito Blog</title>
+  <title>Javascript执行上下文栈 | Despacito Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
+  <meta name="description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。如何管理创建的那么多执行上下文呢？执行上下文栈（Execution context stack，ECS）来管理执行上下文执行一个函数时，就会创建一个">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YouDon&#39;tKnowJS记录（一）">
-<meta property="og:url" content="http://hellocassie.cn/udontknowjs/index.html">
+<meta property="og:title" content="Javascript执行上下文栈">
+<meta property="og:url" content="http://hellocassie.cn/Javascript执行上下文栈/index.html">
 <meta property="og:site_name" content="Despacito Blog">
-<meta property="og:description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
+<meta property="og:description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。如何管理创建的那么多执行上下文呢？执行上下文栈（Execution context stack，ECS）来管理执行上下文执行一个函数时，就会创建一个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-08T13:52:22.286Z">
+<meta property="og:updated_time" content="2018-07-20T09:06:07.502Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YouDon&#39;tKnowJS记录（一）">
-<meta name="twitter:description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
+<meta name="twitter:title" content="Javascript执行上下文栈">
+<meta name="twitter:description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。如何管理创建的那么多执行上下文呢？执行上下文栈（Execution context stack，ECS）来管理执行上下文执行一个函数时，就会创建一个">
   
     <link rel="alternative" href="/atom.xml" title="Despacito Blog" type="application/atom+xml">
   
@@ -196,11 +196,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-udontknowjs" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Javascript执行上下文栈" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-		<a href="/udontknowjs/" class="article-date">
-  	<time datetime="2017-11-18T01:59:31.000Z" itemprop="datePublished">2017-11-18</time>
+		<a href="/Javascript执行上下文栈/" class="article-date">
+  	<time datetime="2018-06-18T01:59:30.000Z" itemprop="datePublished">2018-06-18</time>
 </a>
     </div>
   
@@ -213,7 +213,7 @@
 	  
   
     <h1 class="article-title" itemprop="name">
-      YouDon&#39;tKnowJS记录（一）
+      Javascript执行上下文栈
     </h1>
   
 
@@ -237,32 +237,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="作用域和闭包"><a href="#作用域和闭包" class="headerlink" title="作用域和闭包"></a>作用域和闭包</h1><h2 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h2><p>(根据名称查找变量的一套规则)<br>js 动态的 弱类型的 编译语言<br><a id="more"></a></p>
-<h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>（语法分析和代码生成）<br>var a = 2;  编译器将它分解为var, a, =, 2, 这么几个词法单元，再将词法单元解析成一个树结构<br>代码生成： 在当前作用域声明一个变量a, 运行时引擎在作用域中查找变量a， 若能找到则赋值</p>
-<h3 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h3><p>LHS查询  找到变量容器本身，从而可以对其赋值  eg: a = 2;<br>RHS查询  取到它的源值   eg: foo(2);</p>
-<p>(最好先在开头把变量全都声明   var a, b, c, d;)</p>
-<h2 id="作用域嵌套"><a href="#作用域嵌套" class="headerlink" title="作用域嵌套"></a>作用域嵌套</h2><p>引擎从当前的执行作用域开始查找变量，找不到则向上一级继续查找，直到抵达最外层的全局作用域</p>
-<p>RHS时，当在所有作用域都找不到该变量，引擎抛出 ReferenceError 异常  eg: console.log(b);<br>LHS时，会创建一个全局变量(非严格模式下)  eg: a=2;</p>
-<p>严格模式(ES5引入)<br>禁止自动或隐式创建全局变量</p>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>由函数所<strong>声明</strong>的位置来定义</p>
-<h3 id="欺骗词法作用域"><a href="#欺骗词法作用域" class="headerlink" title="欺骗词法作用域"></a>欺骗词法作用域</h3><p>（导致编译时无法优化，不要使用）</p>
-<h4 id="1-eval-非严格模式"><a href="#1-eval-非严格模式" class="headerlink" title="1.eval (非严格模式)"></a><strong>1.eval</strong> (非严格模式)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function foo(str, a)&#123;</span><br><span class="line">	eval(str);</span><br><span class="line">   console.log(b, a);</span><br><span class="line">  &#125;</span><br><span class="line"> var b = 2;</span><br><span class="line"> foo(&quot;var b = 3;&quot;, 1); // 3, 1`</span><br></pre></td></tr></table></figure>
-<p> 执行eval(..)后， 引擎并不在意前面的代码是以动态形式插入进来，并对词法作用域的环境进行修改<br>动态生成代码的场景罕见， 影响性能， 尽量避免使用</p>
-<h4 id="2-with-非严格模式"><a href="#2-with-非严格模式" class="headerlink" title="2.with (非严格模式)"></a><strong>2.with</strong> (非严格模式)</h4><p>with 通常被当作重复引用 同一个对象中的多个属性 的快捷方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">	a: 1;</span><br><span class="line">   b: 2;</span><br><span class="line">   c: 3;</span><br><span class="line">   &#125;;</span><br><span class="line">  //重复obj</span><br><span class="line"> obj.a = 2; obj.b = 3; obj.c =4;</span><br><span class="line">  //快捷</span><br><span class="line"> with(obj) &#123;</span><br><span class="line"> a=3; b=4; c=5; &#125;</span><br></pre></td></tr></table></figure></p>
-<p>with 会凭空创建一个全新的词法作用域<br>若console.log(a)  若 obj里没有a属性   with（obj）{a=3;…}会导致 自动创建一个全局变量a</p>
-<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><p>属于这个函数的全部变量可以在整个函数范围内使用及复用</p>
+        <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>先入后出，后入先出<br>顶端push(放入） pop(输出)</p>
+<h3 id="JavaScript-代码执行顺序？"><a href="#JavaScript-代码执行顺序？" class="headerlink" title="JavaScript 代码执行顺序？"></a>JavaScript 代码执行顺序？</h3><p><strong>一段一段地分析执行</strong><br>如何分段？<br>三种：全局代码、函数代码、eval代码</p>
 <ul>
-<li>立即执行函数表达式IIFE     ()();   /     (());</li>
+<li>执行一段代码的时候，会进行一个“准备工作”（<strong>即“执行上下文”</strong>），比如变量提升，函数提升。<h3 id="如何管理创建的那么多执行上下文呢？"><a href="#如何管理创建的那么多执行上下文呢？" class="headerlink" title="如何管理创建的那么多执行上下文呢？"></a>如何管理创建的那么多执行上下文呢？</h3><strong>执行上下文栈（Execution context stack，ECS）来管理执行上下文</strong><br>执行一个函数时，就会创建一个执行上下文，并且压入执行上下文栈，当函数执行完毕的时候，就会将函数的执行上下文从栈中弹出。<h3 id="执行上下文的三个属性"><a href="#执行上下文的三个属性" class="headerlink" title="执行上下文的三个属性"></a>执行上下文的三个属性</h3></li>
+<li>变量对象</li>
+<li>作用域链</li>
+<li>this<h3 id="变量对象-VO"><a href="#变量对象-VO" class="headerlink" title="变量对象 (VO)"></a>变量对象 (VO)</h3>存储下列内容：<br>变量<br>函数声明<br>函数的形参 <h4 id="全局上下文的变量对象"><a href="#全局上下文的变量对象" class="headerlink" title="全局上下文的变量对象"></a>全局上下文的变量对象</h4>-&gt; 全局对象<br>全局对象就是 Window 对象  是由 Object 构造函数实例化的一个对象  是预定义的对象，作为 JavaScript 的全局函数和全局属性的占位符<br>通过使用全局对象，可以访问所有其他所有预定义的对象、函数和属性。<h4 id="函数上下文的变量对象"><a href="#函数上下文的变量对象" class="headerlink" title="函数上下文的变量对象"></a>函数上下文的变量对象</h4>-&gt; 活动对象 (AO)<br>在进入函数上下文时刻被创建,通过函数的 arguments 属性初始化<h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3>当查找变量的时候，会先从当前上下文的变量对象中查找，如果没有找到，就会从父级(词法层面上的父级)执行上下文的变量对象中查找，一直找到全局上下文的变量对象<br><strong>这样由多个执行上下文的变量对象构成的链表就叫做作用域链</strong><h4 id="函数的创建"><a href="#函数的创建" class="headerlink" title="函数的创建"></a>函数的创建</h4>函数有一个内部属性 [[scope]]，当函数创建时，就会保存所有父变量对象到其中<br>[[scope]] 就是所有父变量对象的层级链，但是注意：[[scope]] 并不代表完整的作用域链！<h4 id="函数的激活"><a href="#函数的激活" class="headerlink" title="函数的激活"></a>函数的激活</h4>当函数激活时，进入函数上下文，创建 VO/AO 后，就会将活动对象添加到作用链的前端<h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2>1.checkscope 函数被创建，保存作用域链到 内部属性[[scope]]<br>2.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈<br>3.checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数[[scope]]属性创建作用域链<br>4.第二步：用 arguments 创建活动对象，随后初始化活动对象，加入形参、函数声明、变量声明<br>5.第三步：将活动对象压入 checkscope 作用域链顶端<br>6.准备工作做完，开始执行函数，随着函数的执行，修改 AO 的属性值<br>7.查找到 scope2 的值，返回后函数执行完毕，函数上下文从执行上下文栈中弹出</li>
 </ul>
-<h2 id="块作用域"><a href="#块作用域" class="headerlink" title="块作用域"></a>块作用域</h2><p>如  for() 循环   with    try/catch   </p>
-<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p>let 可以将变量绑定到所在的任意作用域中<br>用{..} 为let 创建一个用于绑定的块<br>使用let 声明 不会在块作用域中进行<strong>提升</strong></p>
-<h2 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h2><p>先声明 再执行<br><strong>只有声明会被提升</strong><br>每个作用域内 声明都会提升<br>顺序：<br><strong>1.函数</strong><br><strong>2.变量</strong><br>重复声明：<br>后面的函数声明覆盖前面的 （以最后的为准）<br>前面的变量声明忽略后面的 （以最前的为准）<br>块内部的函数声明会被提升到所在作用域的顶部， 应避免在<strong>块内部</strong>声明函数<br>如 if(a){function foo() {…}}</p>
-<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包就是 <strong>能够读取其他函数内部变量的函数</strong><br>作用：<br>1.可以读取函数内部的变量<br>2.让这些变量的值始终保持在内存中 （内存消耗大，不能滥用闭包）（解决方法：在退出函数之前，将不使用的局部变量全部删除）<br>eg: 在函数的内部，再定义一个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function f1()&#123;</span><br><span class="line">　　　　var n=999;</span><br><span class="line">　　　　function f2()&#123;</span><br><span class="line">　　　　　　alert(n); </span><br><span class="line">　　　　&#125;</span><br><span class="line">　　　　return f2;</span><br><span class="line">　　&#125;</span><br><span class="line">　　var result=f1();</span><br><span class="line">　　result(); // 999</span><br></pre></td></tr></table></figure></p>
-<p>eg: 定时器 事件监听器 ajax请求 跨窗口通信 等</p>
-<h3 id="循环和闭包"><a href="#循环和闭包" class="headerlink" title="循环和闭包"></a>循环和闭包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(var i=1;i &lt;=5; i++) &#123;</span><br><span class="line">  		setTimeout( function timer()&#123;</span><br><span class="line">    	console.log(i);&#125;,i*1000);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>输出五次6  与预期不符<br>尽管循环中五个函数在各个迭代中分别定义，但都被<strong>封闭在一个共享的全局作用域中</strong>， 实际上只有一个i<br>在循环中 每个迭代都需要一个闭包作用域<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for(var i=1; i&lt;=5; i++)</span><br><span class="line">&#123; (function() &#123;</span><br><span class="line">	var j = i;</span><br><span class="line">    setTimeout( function timer()&#123;</span><br><span class="line">    	console.log(j);&#125;,j*1000);</span><br><span class="line">        &#125;)();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用let声明"><a href="#使用let声明" class="headerlink" title="使用let声明"></a><strong>使用let声明</strong></h3><p> 重返块作用域<br> let可以劫持块作用域 （本质上是 将一个块转换成一个可以关闭的作用域）<br> for循环头部的let声明 每次迭代都会声明<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(let i=1;i &lt;=5; i++) &#123;</span><br><span class="line"> 		setTimeout( function timer()&#123;</span><br><span class="line">   	console.log(i);&#125;,i*1000);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>为创建内部作用域而调用了一个包装函数<br>包装函数的返回值必须包括至少一个对内部函数的引用</p>
 
       
 	  <div id="back-to-top" data-scroll="body">
@@ -274,16 +256,16 @@
   
     
 <div class="copyright">
-  <p><span>本文标题:</span><a href="/udontknowjs/">YouDon&#39;tKnowJS记录（一）</a></p>
+  <p><span>本文标题:</span><a href="/Javascript执行上下文栈/">Javascript执行上下文栈</a></p>
   <p><span>文章作者:</span>
   	<a href="/" title="访问 Despacito 的个人博客">Despacito</a>
   	<a href="https://github.com/airingursb" title="访问 Despacito 的GitHub"><i class="fa fa-github-alt"></i></a>
   </p>
-  <p><span>发布时间:</span>2017年11月18日 - 09时59分</p>
-  <p><span>最后更新:</span>2018年04月08日 - 21时52分</p>
+  <p><span>发布时间:</span>2018年06月18日 - 09时59分</p>
+  <p><span>最后更新:</span>2018年07月20日 - 17时06分</p>
   <p>
-    <span>原始链接:</span><a class="post-url" href="/udontknowjs/" title="YouDon&#39;tKnowJS记录（一）">http://hellocassie.cn/udontknowjs/</a>
-    <span class="copy-path" data-clipboard-text="原文: http://hellocassie.cn/udontknowjs/　　作者: Despacito" title="点击复制文章链接">
+    <span>原始链接:</span><a class="post-url" href="/Javascript执行上下文栈/" title="Javascript执行上下文栈">http://hellocassie.cn/Javascript执行上下文栈/</a>
+    <span class="copy-path" data-clipboard-text="原文: http://hellocassie.cn/Javascript执行上下文栈/　　作者: Despacito" title="点击复制文章链接">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -298,15 +280,11 @@
 
 <nav id="article-nav">
   
-    <a href="/css类名词汇/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          css类名词汇
-        
-      </div>
-    </a>
   
+    <a href="/前端异常捕获与错误处理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">前端异常捕获与错误处理</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -328,7 +306,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"YouDon'tKnowJS记录（一）　| Despacito Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Javascript执行上下文栈　| Despacito Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 </div>
@@ -344,7 +322,7 @@
 	<hr size=1 style="color:#ff9999;border-style:double;color:#CCC"> 
 	<div class="ds-recent-visitors" style="background: rgba(255, 255, 255, .2);" data-num-items="60" data-avatar-size="42" id="ds-recent-visitors"></div>
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="udontknowjs" data-title="YouDon&#39;tKnowJS记录（一）" data-url="http://hellocassie.cn/udontknowjs/"></div>
+	<div class="ds-thread" data-thread-key="Javascript执行上下文栈" data-title="Javascript执行上下文栈" data-url="http://hellocassie.cn/Javascript执行上下文栈/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
