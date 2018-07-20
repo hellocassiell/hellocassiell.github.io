@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Despacito Blog</title>
+  <title>前端异常捕获与错误处理 | Despacito Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="关于我  说些什么呢～">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Despacito Blog">
-<meta property="og:url" content="http://hellocassie.cn/about/index.html">
+  <meta name="description" content="throw使用throw语句抛出一个异常  可以抛出任意表达式 123throw &amp;apos;Error2&amp;apos;;   // String typethrow 42;         // Number typethrow true;       // Boolean type">
+<meta name="keywords" content="others">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端异常捕获与错误处理">
+<meta property="og:url" content="http://hellocassie.cn/前端异常捕获与错误处理/index.html">
 <meta property="og:site_name" content="Despacito Blog">
-<meta property="og:description" content="关于我  说些什么呢～">
+<meta property="og:description" content="throw使用throw语句抛出一个异常  可以抛出任意表达式 123throw &amp;apos;Error2&amp;apos;;   // String typethrow 42;         // Number typethrow true;       // Boolean type">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-05T10:14:35.727Z">
+<meta property="og:updated_time" content="2018-07-20T03:23:43.478Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Despacito Blog">
-<meta name="twitter:description" content="关于我  说些什么呢～">
+<meta name="twitter:title" content="前端异常捕获与错误处理">
+<meta name="twitter:description" content="throw使用throw语句抛出一个异常  可以抛出任意表达式 123throw &amp;apos;Error2&amp;apos;;   // String typethrow 42;         // Number typethrow true;       // Boolean type">
   
     <link rel="alternative" href="/atom.xml" title="Despacito Blog" type="application/atom+xml">
   
@@ -195,11 +196,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-前端异常捕获与错误处理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-		<a href="/about/index.html" class="article-date">
-  	<time datetime="2017-04-04T14:14:07.000Z" itemprop="datePublished">2017-04-04</time>
+		<a href="/前端异常捕获与错误处理/" class="article-date">
+  	<time datetime="2017-11-18T01:59:31.000Z" itemprop="datePublished">2017-11-18</time>
 </a>
     </div>
   
@@ -208,10 +209,77 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+	  
+  
+    <h1 class="article-title" itemprop="name">
+      前端异常捕获与错误处理
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/others/">others</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>关于我 </p>
-<p>说些什么呢～</p>
+        <h2 id="throw"><a href="#throw" class="headerlink" title="throw"></a>throw</h2><p>使用throw语句抛出一个异常</p>
+<ul>
+<li><p>可以抛出任意表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">throw &apos;Error2&apos;;   // String type</span><br><span class="line">throw 42;         // Number type</span><br><span class="line">throw true;       // Boolean type</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+</li>
+<li><p>可以在抛出异常时声明一个对象，那你就可以在catch块中查询到对象的属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.</span><br><span class="line">throw &#123;</span><br><span class="line">  toString: function() &#123;</span><br><span class="line">    return &apos;I&apos;m an object!&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">2.</span><br><span class="line">function UserException (message)&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">throw new UserException(&apos;Value too high&apos;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>作用范围就是阻断一个 script 标签内的程序运行，但是不会影响下面的 script。</p>
+</blockquote>
+<h2 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a>try…catch</h2><p>try…catch 语句有一个包含一条或者多条语句的try代码块，0个或多个的catch代码块，catch代码块中的语句会在try代码块中抛出异常时执行。finally 代码块总会紧跟在try和catch代码块之后执行。</p>
+<ul>
+<li>用try块来执行代码，抛出异常。</li>
+<li>用catch块来处理所有可能在try块中产生的异常。</li>
+<li>用finally块来令你的脚本在异常发生时优雅地退出。<blockquote>
+<p>如果finally块返回一个值，该值会是整个try-catch-finally流程的返回值。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Error对象"><a href="#Error对象" class="headerlink" title="Error对象"></a>Error对象</h2><p>name：错误名称<br>message：错误提示信息<br>stack：错误的堆栈（非标准属性，但是大多数平台支持）</p>
+<p>Error对象是最一般的错误类型，在它的基础上，JavaScript还定义了其他6种错误，也就是说，存在Error的6个派生对象。</p>
+<p>1、SyntaxError //解析代码时发生的语法错误<br>2、ReferenceError //引用一个不存在的变量时发生的错误<br>3、RangeError //当一个值超出有效范围时发生的错误<br>4、TypeError //变量或参数不是预期类型时发生的错误<br>5、URIError //URI相关函数的参数不正确时抛出的错误<br>6、EvalError //eval函数没有被正确执行时，会抛出EvalError错误</p>
+<p>可以自定义Error对象</p>
+<h2 id="异步函数的异常捕获"><a href="#异步函数的异常捕获" class="headerlink" title="异步函数的异常捕获"></a>异步函数的异常捕获</h2><ul>
+<li>常见的异步模型</li>
+</ul>
+<p>1 高阶函数（泛函数）<br>把函数作为参数送入，然后回调。<br>2 事件监听<br>3 发布/订阅( Pub/Sub )<br>4 Promise 对象</p>
+<blockquote>
+<p>某个函数会导致将来再运行的另一个函数，后者取自于事件队列（若后面这个函数是作为参数传递给前者的，则称其为回调函数，简称为回调）。</p>
+</blockquote>
+<p>try/catch无法捕捉异步回调里的异常，无法捕捉到语法错误，也没法去捕捉全局的异常事件。</p>
+<blockquote>
+<p>因为异步函数的回调是在事件队列里单独拉出来执行的。所以在异步函数外面包裹try-catch是无法捕捉到回调函数里抛出的异常的。因为当回调函数从队列里被拉出来执行的时候try-catch所在的代码块已经执行完毕了。</p>
+</blockquote>
+<p>当回调里的异常被抛出但没被捕获的时候，该异常会直接被主程序所捕获。在浏览器里可以通过window.onerror，在node里通过process.uncaughtException可以捕获此类异常。</p>
+<ul>
+<li>Promise不需要使用try…catch，直接使用.catch()</li>
+<li>Generator 可以直接使用co 函数库来使用try…catch</li>
+<li>async 和 await 可以直接使用try…catch</li>
+</ul>
 
       
 	  <div id="back-to-top" data-scroll="body">
@@ -222,9 +290,42 @@
   </div>
   
     
+<div class="copyright">
+  <p><span>本文标题:</span><a href="/前端异常捕获与错误处理/">前端异常捕获与错误处理</a></p>
+  <p><span>文章作者:</span>
+  	<a href="/" title="访问 Despacito 的个人博客">Despacito</a>
+  	<a href="https://github.com/airingursb" title="访问 Despacito 的GitHub"><i class="fa fa-github-alt"></i></a>
+  </p>
+  <p><span>发布时间:</span>2017年11月18日 - 09时59分</p>
+  <p><span>最后更新:</span>2018年07月20日 - 11时23分</p>
+  <p>
+    <span>原始链接:</span><a class="post-url" href="/前端异常捕获与错误处理/" title="前端异常捕获与错误处理">http://hellocassie.cn/前端异常捕获与错误处理/</a>
+    <span class="copy-path" data-clipboard-text="原文: http://hellocassie.cn/前端异常捕获与错误处理/　　作者: Despacito" title="点击复制文章链接">
+        <i class="fa fa-clipboard"></i>
+    </span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。</p>
+  <script src="/js/clipboard.min.js"></script>
+  <script> var clipboard = new Clipboard('.copy-path'); </script>
+</div>
 
 
 
+
+
+<nav id="article-nav">
+  
+    <a href="/udontknowjs/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          YouDon&#39;tKnowJS记录（一）
+        
+      </div>
+    </a>
+  
+  
+</nav>
 
   
   </article>
@@ -244,7 +345,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"　| Despacito Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"前端异常捕获与错误处理　| Despacito Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 </div>
@@ -253,6 +354,30 @@
 
 
 
+
+
+<div class="duoshuo">
+	<span style="font-size:14px; margin:3px auto">最近访客</span>
+	<hr size=1 style="color:#ff9999;border-style:double;color:#CCC"> 
+	<div class="ds-recent-visitors" style="background: rgba(255, 255, 255, .2);" data-num-items="60" data-avatar-size="42" id="ds-recent-visitors"></div>
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="前端异常捕获与错误处理" data-title="前端异常捕获与错误处理" data-url="http://hellocassie.cn/前端异常捕获与错误处理/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"airingursb"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		//ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.src = 'http://ursb.me/js/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
@@ -366,7 +491,7 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
