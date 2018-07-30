@@ -5,18 +5,18 @@
   
   <title>Javascript执行上下文栈 | Despacito Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。如何管理创建的那么多执行上下文呢？执行上下文栈（Execution context stack，ECS）来管理执行上下文执行一个函数时，就会创建一个">
+  <meta name="description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Javascript执行上下文栈">
 <meta property="og:url" content="http://hellocassie.cn/Javascript执行上下文栈/index.html">
 <meta property="og:site_name" content="Despacito Blog">
-<meta property="og:description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。如何管理创建的那么多执行上下文呢？执行上下文栈（Execution context stack，ECS）来管理执行上下文执行一个函数时，就会创建一个">
+<meta property="og:description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-20T09:06:07.502Z">
+<meta property="og:updated_time" content="2018-07-30T06:04:31.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript执行上下文栈">
-<meta name="twitter:description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。如何管理创建的那么多执行上下文呢？执行上下文栈（Execution context stack，ECS）来管理执行上下文执行一个函数时，就会创建一个">
+<meta name="twitter:description" content="栈先入后出，后入先出顶端push(放入） pop(输出) JavaScript 代码执行顺序？一段一段地分析执行如何分段？三种：全局代码、函数代码、eval代码  执行一段代码的时候，会进行一个“准备工作”（即“执行上下文”），比如变量提升，函数提升。">
   
     <link rel="alternative" href="/atom.xml" title="Despacito Blog" type="application/atom+xml">
   
@@ -240,7 +240,8 @@
         <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>先入后出，后入先出<br>顶端push(放入） pop(输出)</p>
 <h3 id="JavaScript-代码执行顺序？"><a href="#JavaScript-代码执行顺序？" class="headerlink" title="JavaScript 代码执行顺序？"></a>JavaScript 代码执行顺序？</h3><p><strong>一段一段地分析执行</strong><br>如何分段？<br>三种：全局代码、函数代码、eval代码</p>
 <ul>
-<li>执行一段代码的时候，会进行一个“准备工作”（<strong>即“执行上下文”</strong>），比如变量提升，函数提升。<h3 id="如何管理创建的那么多执行上下文呢？"><a href="#如何管理创建的那么多执行上下文呢？" class="headerlink" title="如何管理创建的那么多执行上下文呢？"></a>如何管理创建的那么多执行上下文呢？</h3><strong>执行上下文栈（Execution context stack，ECS）来管理执行上下文</strong><br>执行一个函数时，就会创建一个执行上下文，并且压入执行上下文栈，当函数执行完毕的时候，就会将函数的执行上下文从栈中弹出。<h3 id="执行上下文的三个属性"><a href="#执行上下文的三个属性" class="headerlink" title="执行上下文的三个属性"></a>执行上下文的三个属性</h3></li>
+<li>执行一段代码的时候，会进行一个“准备工作”（<strong>即“执行上下文”</strong>），比如变量提升，函数提升。<a id="more"></a>
+<h3 id="如何管理创建的那么多执行上下文呢？"><a href="#如何管理创建的那么多执行上下文呢？" class="headerlink" title="如何管理创建的那么多执行上下文呢？"></a>如何管理创建的那么多执行上下文呢？</h3><strong>执行上下文栈（Execution context stack，ECS）来管理执行上下文</strong><br>执行一个函数时，就会创建一个执行上下文，并且压入执行上下文栈，当函数执行完毕的时候，就会将函数的执行上下文从栈中弹出。<h3 id="执行上下文的三个属性"><a href="#执行上下文的三个属性" class="headerlink" title="执行上下文的三个属性"></a>执行上下文的三个属性</h3></li>
 <li>变量对象</li>
 <li>作用域链</li>
 <li>this<h3 id="变量对象-VO"><a href="#变量对象-VO" class="headerlink" title="变量对象 (VO)"></a>变量对象 (VO)</h3>存储下列内容：<br>变量<br>函数声明<br>函数的形参 <h4 id="全局上下文的变量对象"><a href="#全局上下文的变量对象" class="headerlink" title="全局上下文的变量对象"></a>全局上下文的变量对象</h4>-&gt; 全局对象<br>全局对象就是 Window 对象  是由 Object 构造函数实例化的一个对象  是预定义的对象，作为 JavaScript 的全局函数和全局属性的占位符<br>通过使用全局对象，可以访问所有其他所有预定义的对象、函数和属性。<h4 id="函数上下文的变量对象"><a href="#函数上下文的变量对象" class="headerlink" title="函数上下文的变量对象"></a>函数上下文的变量对象</h4>-&gt; 活动对象 (AO)<br>在进入函数上下文时刻被创建,通过函数的 arguments 属性初始化<h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3>当查找变量的时候，会先从当前上下文的变量对象中查找，如果没有找到，就会从父级(词法层面上的父级)执行上下文的变量对象中查找，一直找到全局上下文的变量对象<br><strong>这样由多个执行上下文的变量对象构成的链表就叫做作用域链</strong><h4 id="函数的创建"><a href="#函数的创建" class="headerlink" title="函数的创建"></a>函数的创建</h4>函数有一个内部属性 [[scope]]，当函数创建时，就会保存所有父变量对象到其中<br>[[scope]] 就是所有父变量对象的层级链，但是注意：[[scope]] 并不代表完整的作用域链！<h4 id="函数的激活"><a href="#函数的激活" class="headerlink" title="函数的激活"></a>函数的激活</h4>当函数激活时，进入函数上下文，创建 VO/AO 后，就会将活动对象添加到作用链的前端<h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2>1.checkscope 函数被创建，保存作用域链到 内部属性[[scope]]<br>2.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈<br>3.checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数[[scope]]属性创建作用域链<br>4.第二步：用 arguments 创建活动对象，随后初始化活动对象，加入形参、函数声明、变量声明<br>5.第三步：将活动对象压入 checkscope 作用域链顶端<br>6.准备工作做完，开始执行函数，随着函数的执行，修改 AO 的属性值<br>7.查找到 scope2 的值，返回后函数执行完毕，函数上下文从执行上下文栈中弹出</li>
@@ -262,7 +263,7 @@
   	<a href="https://github.com/airingursb" title="访问 Despacito 的GitHub"><i class="fa fa-github-alt"></i></a>
   </p>
   <p><span>发布时间:</span>2018年06月18日 - 09时59分</p>
-  <p><span>最后更新:</span>2018年07月20日 - 17时06分</p>
+  <p><span>最后更新:</span>2018年07月30日 - 14时04分</p>
   <p>
     <span>原始链接:</span><a class="post-url" href="/Javascript执行上下文栈/" title="Javascript执行上下文栈">http://hellocassie.cn/Javascript执行上下文栈/</a>
     <span class="copy-path" data-clipboard-text="原文: http://hellocassie.cn/Javascript执行上下文栈/　　作者: Despacito" title="点击复制文章链接">
