@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>YouDon&#39;tKnowJS记录（一） | Despacito Blog</title>
+  <title>深入理解计算机系统笔记（一） | Despacito Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
-<meta name="keywords" content="js">
+  <meta name="description" content="信息就是位+上下文 程序 就是一个 由值0和1组成的 位序列 位：”位(bit)”是电子计算机中最小的数据单位。每一位的状态只能是0或1。 字节：8个位被组织成一组，称为字节。 每个字节表示程序中某个文本字符。1个字节可以储存1个英文字母或者半个汉字。 字：”字”由若干个字节构成，字的位数叫做字长，不同档次的机器有不同的字长。例如一台8位机，它的1个字就等于1个字节，字长为8位。如果是一台16位机">
+<meta name="keywords" content="计算机系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YouDon&#39;tKnowJS记录（一）">
-<meta property="og:url" content="http://hellocassie.cn/udontknowjs/index.html">
+<meta property="og:title" content="深入理解计算机系统笔记（一）">
+<meta property="og:url" content="http://hellocassie.cn/深入理解计算机系统笔记（一）/index.html">
 <meta property="og:site_name" content="Despacito Blog">
-<meta property="og:description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
+<meta property="og:description" content="信息就是位+上下文 程序 就是一个 由值0和1组成的 位序列 位：”位(bit)”是电子计算机中最小的数据单位。每一位的状态只能是0或1。 字节：8个位被组织成一组，称为字节。 每个字节表示程序中某个文本字符。1个字节可以储存1个英文字母或者半个汉字。 字：”字”由若干个字节构成，字的位数叫做字长，不同档次的机器有不同的字长。例如一台8位机，它的1个字就等于1个字节，字长为8位。如果是一台16位机">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-08T13:52:22.286Z">
+<meta property="og:updated_time" content="2018-07-30T06:03:41.460Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YouDon&#39;tKnowJS记录（一）">
-<meta name="twitter:description" content="作用域和闭包作用域是什么(根据名称查找变量的一套规则)js 动态的 弱类型的 编译语言">
+<meta name="twitter:title" content="深入理解计算机系统笔记（一）">
+<meta name="twitter:description" content="信息就是位+上下文 程序 就是一个 由值0和1组成的 位序列 位：”位(bit)”是电子计算机中最小的数据单位。每一位的状态只能是0或1。 字节：8个位被组织成一组，称为字节。 每个字节表示程序中某个文本字符。1个字节可以储存1个英文字母或者半个汉字。 字：”字”由若干个字节构成，字的位数叫做字长，不同档次的机器有不同的字长。例如一台8位机，它的1个字就等于1个字节，字长为8位。如果是一台16位机">
   
     <link rel="alternative" href="/atom.xml" title="Despacito Blog" type="application/atom+xml">
   
@@ -196,11 +196,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-udontknowjs" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-深入理解计算机系统笔记（一）" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-		<a href="/udontknowjs/" class="article-date">
-  	<time datetime="2017-11-18T01:59:31.000Z" itemprop="datePublished">2017-11-18</time>
+		<a href="/深入理解计算机系统笔记（一）/" class="article-date">
+  	<time datetime="2018-05-29T07:59:23.000Z" itemprop="datePublished">2018-05-29</time>
 </a>
     </div>
   
@@ -213,7 +213,7 @@
 	  
   
     <h1 class="article-title" itemprop="name">
-      YouDon&#39;tKnowJS记录（一）
+      深入理解计算机系统笔记（一）
     </h1>
   
 
@@ -222,12 +222,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算机系统/">计算机系统</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/js/">js</a>
+	<a class="article-category-link" href="/categories/计算机系统/">计算机系统</a>
 	</div>
 
 
@@ -237,32 +237,57 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="作用域和闭包"><a href="#作用域和闭包" class="headerlink" title="作用域和闭包"></a>作用域和闭包</h1><h2 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h2><p>(根据名称查找变量的一套规则)<br>js 动态的 弱类型的 编译语言<br><a id="more"></a></p>
-<h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>（语法分析和代码生成）<br>var a = 2;  编译器将它分解为var, a, =, 2, 这么几个词法单元，再将词法单元解析成一个树结构<br>代码生成： 在当前作用域声明一个变量a, 运行时引擎在作用域中查找变量a， 若能找到则赋值</p>
-<h3 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h3><p>LHS查询  找到变量容器本身，从而可以对其赋值  eg: a = 2;<br>RHS查询  取到它的源值   eg: foo(2);</p>
-<p>(最好先在开头把变量全都声明   var a, b, c, d;)</p>
-<h2 id="作用域嵌套"><a href="#作用域嵌套" class="headerlink" title="作用域嵌套"></a>作用域嵌套</h2><p>引擎从当前的执行作用域开始查找变量，找不到则向上一级继续查找，直到抵达最外层的全局作用域</p>
-<p>RHS时，当在所有作用域都找不到该变量，引擎抛出 ReferenceError 异常  eg: console.log(b);<br>LHS时，会创建一个全局变量(非严格模式下)  eg: a=2;</p>
-<p>严格模式(ES5引入)<br>禁止自动或隐式创建全局变量</p>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>由函数所<strong>声明</strong>的位置来定义</p>
-<h3 id="欺骗词法作用域"><a href="#欺骗词法作用域" class="headerlink" title="欺骗词法作用域"></a>欺骗词法作用域</h3><p>（导致编译时无法优化，不要使用）</p>
-<h4 id="1-eval-非严格模式"><a href="#1-eval-非严格模式" class="headerlink" title="1.eval (非严格模式)"></a><strong>1.eval</strong> (非严格模式)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function foo(str, a)&#123;</span><br><span class="line">	eval(str);</span><br><span class="line">   console.log(b, a);</span><br><span class="line">  &#125;</span><br><span class="line"> var b = 2;</span><br><span class="line"> foo(&quot;var b = 3;&quot;, 1); // 3, 1`</span><br></pre></td></tr></table></figure>
-<p> 执行eval(..)后， 引擎并不在意前面的代码是以动态形式插入进来，并对词法作用域的环境进行修改<br>动态生成代码的场景罕见， 影响性能， 尽量避免使用</p>
-<h4 id="2-with-非严格模式"><a href="#2-with-非严格模式" class="headerlink" title="2.with (非严格模式)"></a><strong>2.with</strong> (非严格模式)</h4><p>with 通常被当作重复引用 同一个对象中的多个属性 的快捷方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">	a: 1;</span><br><span class="line">   b: 2;</span><br><span class="line">   c: 3;</span><br><span class="line">   &#125;;</span><br><span class="line">  //重复obj</span><br><span class="line"> obj.a = 2; obj.b = 3; obj.c =4;</span><br><span class="line">  //快捷</span><br><span class="line"> with(obj) &#123;</span><br><span class="line"> a=3; b=4; c=5; &#125;</span><br></pre></td></tr></table></figure></p>
-<p>with 会凭空创建一个全新的词法作用域<br>若console.log(a)  若 obj里没有a属性   with（obj）{a=3;…}会导致 自动创建一个全局变量a</p>
-<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><p>属于这个函数的全部变量可以在整个函数范围内使用及复用</p>
-<ul>
-<li>立即执行函数表达式IIFE     ()();   /     (());</li>
+        <h3 id="信息就是位-上下文"><a href="#信息就是位-上下文" class="headerlink" title="信息就是位+上下文"></a>信息就是位+上下文</h3><ul>
+<li><p><strong>程序 就是一个 由值0和1组成的 位序列</strong></p>
+<p>位：”位(bit)”是电子计算机中最小的数据单位。每一位的状态只能是0或1。</p>
+<p>字节：8个位被组织成一组，称为字节。 每个字节表示程序中某个文本字符。1个字节可以储存1个英文字母或者半个汉字。</p>
+<p>字：”字”由若干个字节构成，字的位数叫做字长，不同档次的机器有不同的字长。例如一台8位机，它的1个字就等于1个字节，字长为8位。如果是一台16位机，那么，它的1个字就由2个字节构成，字长为16位。在32位操作系统当中，一个字是4个字节，字是计算机进行数据处理和运算的单位。</p>
+<a id="more"></a>
+<p>每条语句被转化为一系列的低级机器语言指令， 按照可执行目标程序的格式打包， 以二进制磁盘文件的形式存放。</p>
+<p>系统中的所有的信息 （包括磁盘文件，内存中的程序，内存中的用户数据以及 网络上传输的数据，都是一串位bit 表示），区别不同数据对象的唯一方法，就是我们读到这些数据对象时的上下文。在不同的上下文中，一个相同的 字节序列 可能表示 一个整数，浮点数 ，字符串，或者机器指令。</p>
+</li>
+<li><p>源程序 -&gt; 可执行目标文件<br>经过 预处理器、编译器、汇编器、链接器 （四者构成了编译系统）</p>
+</li>
 </ul>
-<h2 id="块作用域"><a href="#块作用域" class="headerlink" title="块作用域"></a>块作用域</h2><p>如  for() 循环   with    try/catch   </p>
-<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p>let 可以将变量绑定到所在的任意作用域中<br>用{..} 为let 创建一个用于绑定的块<br>使用let 声明 不会在块作用域中进行<strong>提升</strong></p>
-<h2 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h2><p>先声明 再执行<br><strong>只有声明会被提升</strong><br>每个作用域内 声明都会提升<br>顺序：<br><strong>1.函数</strong><br><strong>2.变量</strong><br>重复声明：<br>后面的函数声明覆盖前面的 （以最后的为准）<br>前面的变量声明忽略后面的 （以最前的为准）<br>块内部的函数声明会被提升到所在作用域的顶部， 应避免在<strong>块内部</strong>声明函数<br>如 if(a){function foo() {…}}</p>
-<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包就是 <strong>能够读取其他函数内部变量的函数</strong><br>作用：<br>1.可以读取函数内部的变量<br>2.让这些变量的值始终保持在内存中 （内存消耗大，不能滥用闭包）（解决方法：在退出函数之前，将不使用的局部变量全部删除）<br>eg: 在函数的内部，再定义一个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function f1()&#123;</span><br><span class="line">　　　　var n=999;</span><br><span class="line">　　　　function f2()&#123;</span><br><span class="line">　　　　　　alert(n); </span><br><span class="line">　　　　&#125;</span><br><span class="line">　　　　return f2;</span><br><span class="line">　　&#125;</span><br><span class="line">　　var result=f1();</span><br><span class="line">　　result(); // 999</span><br></pre></td></tr></table></figure></p>
-<p>eg: 定时器 事件监听器 ajax请求 跨窗口通信 等</p>
-<h3 id="循环和闭包"><a href="#循环和闭包" class="headerlink" title="循环和闭包"></a>循环和闭包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(var i=1;i &lt;=5; i++) &#123;</span><br><span class="line">  		setTimeout( function timer()&#123;</span><br><span class="line">    	console.log(i);&#125;,i*1000);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>输出五次6  与预期不符<br>尽管循环中五个函数在各个迭代中分别定义，但都被<strong>封闭在一个共享的全局作用域中</strong>， 实际上只有一个i<br>在循环中 每个迭代都需要一个闭包作用域<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for(var i=1; i&lt;=5; i++)</span><br><span class="line">&#123; (function() &#123;</span><br><span class="line">	var j = i;</span><br><span class="line">    setTimeout( function timer()&#123;</span><br><span class="line">    	console.log(j);&#125;,j*1000);</span><br><span class="line">        &#125;)();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用let声明"><a href="#使用let声明" class="headerlink" title="使用let声明"></a><strong>使用let声明</strong></h3><p> 重返块作用域<br> let可以劫持块作用域 （本质上是 将一个块转换成一个可以关闭的作用域）<br> for循环头部的let声明 每次迭代都会声明<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(let i=1;i &lt;=5; i++) &#123;</span><br><span class="line"> 		setTimeout( function timer()&#123;</span><br><span class="line">   	console.log(i);&#125;,i*1000);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>为创建内部作用域而调用了一个包装函数<br>包装函数的返回值必须包括至少一个对内部函数的引用</p>
+<blockquote>
+<p>1 预处理阶段：预处理器（cpp）根据以字符 # 开头的命令，修改原始的 C 程序。<br>2 编译阶段：编译器（cc1）将文本文件 hello.i 翻译成文本文件 hello.s，它包含一个汇编语言程序。汇编语言程序中的每条语句都以一种标准的文本格式确切地描述了一条低级机器语言指令。<br>3 汇编阶段：汇编器（as）将 hello.s 翻译成机器语言指令，把这些指令打包成一种叫做可重定位目标程序的格式，并将结果保存在目标文件 hello.o （二进制文件）中。<br>4 链接阶段： 链接标准c库中的函数，比如printf，然后合并。</p>
+</blockquote>
+<h3 id="程序的运行"><a href="#程序的运行" class="headerlink" title="程序的运行"></a>程序的运行</h3><p>输入命令 -&gt; CPU里的寄存器读入 -&gt; copy到主存   shell编译代码<br>磁盘（可执行目标文件） -&gt; copy到主存 -&gt; copy到寄存器（CPU执行）<br>磁盘(结果) -&gt; 主存(结果) -&gt; copy到寄存器 -&gt; copy到显示设备</p>
+<blockquote>
+<p>为了提高程序性能，1 采用高速缓存存储器，作为暂时的集结区域，用来存放处理器近期可能会需要的信息。2 多线程</p>
+</blockquote>
+<h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><p><strong>应用程序和硬件之间插入的一层软件</strong><br>操作系统的两个基本功能：</p>
+<p>　　①、防止硬件被失控的应用程序滥用。</p>
+<p>　　②、向应用程序提供简单一致的机制来控制复杂而又大相径庭的低级硬件设备。</p>
+<ul>
+<li><p>进程<br>一个 CPU 看上去都像是在并发地执行多个进程，这是通过处理器在进程间切换（上下文切换）来实现的。</p>
+</li>
+<li><p>线程<br>一个进程可以由多个称为线程的执行单元组成。每个线程都运行在进程的上下文中，并共享同样的代码和全局数<br>据。</p>
+</li>
+<li><p>虚拟存储器<br>其基本思想是把一个进程虚拟存储器的内容存储在磁盘上，然后用主存作为磁盘的高速缓存。<br>为每个进程提供了一个假象，即每个进程都在独占地使用主存。每个进程看到的是一致的存储器，称为虚拟地址空间。<br>虚拟地址空间由大量准确定义的区构成，每个区都有专门的功能。（从最低的地址开始，逐步向上）<br>程序代码和数据  堆  共享库  栈  内核虚拟存储器</p>
+</li>
+<li><p>文件<br>文件 就是 字节序列<br>文本文件<br>以ASCII码方式(也称文本方式)存储的文件，后面基于 utf-8 编码的文本文件，utf-8是能够向后兼容ASCII，即相同的ASCII文本文件和UTF-8文本文件完全一致。它是一种典型的顺序文件，其文件的逻辑结构又属于流式文件。（程序就是文本文件）<br>二进制文件<br>是基于值编码的文件，你可以根据具体应用，指定某个值（可以看作是自定义编码）。</p>
+<p>物理层上讲数据都是二进制存储的，逻辑层上讲就会出现“文本文件”和“二进制文件”的不同解析方式。这就是他们最本质的区别。</p>
+</li>
+<li><p>并发<br>指一个同时具有多个活动的系统</p>
+</li>
+<li><p>并行<br>用并发来使一个系统运行得更快<br>并行可以在计算机系统的多个抽象层次上运用<br>重点强调的三个层次：线程级并发、指令级并行、单指令/多数据并行</p>
+</li>
+<li><p>三个抽象<br>文件是对 I/O 设备的抽象，虚拟存储器是对主存和磁盘I/O设备的抽象，而进程是对处理器、主存和I/O设备的抽象。<br>在处理器里，<strong>指令集架构</strong>提供了对实际处理器硬件的抽象。</p>
+</li>
+<li><p>总线<br>贯穿整个系统的一组电子管道</p>
+</li>
+<li><p>主存<br>计算机的一个临时存储设备  由一组动态随机存储存储器组成  是一个线性的字节数组  每一个字节都有唯一的地址</p>
+</li>
+<li><p>处理器（CPU）<br>是解释（或执行）存储在主存中的指令的引擎。处理器的核心是一个字长的存储设备（或寄存器），简称程序计数器（PC），在任何时刻，它都会指向主存中的某条机器指令（即含有该条指令的地址）。从系统通电到断点，处理器一直在不断的执行程序计数器所指向指令，再更新程序计数器，使其指向下一条指令。处理器所做的操作是围绕主存、寄存器文件以及算术/逻辑单元（ALU）进行的，寄存器文件是一个小的存储设备，由一些1字长的寄存器组成，每个寄存器都有唯一的名字。ALU则计算新的数据和地址值。</p>
+</li>
+</ul>
+<p>CPU 在指令的要求下会做如下操作：</p>
+<p>　　　　①、加载：把一个字节或者一个字从主存复制到寄存器，以覆盖寄存器原来的内容</p>
+<p>　　　　②、存储：把一个字节或者一个字从寄存器复制到主存的某个位置，以覆盖这个位置上原来的内容</p>
+<p>　　　　③、操作：把两个寄存器的内容复制到 ALU，ALU 对这两个字做算术操作，并把结果存放到一个寄存器中，以覆盖寄存器原来的内容</p>
+<p>　　　　④、跳转：从指令本身中抽取一个字，并将这个字复制到程序计数器（PC）中，以覆盖PC中原来的内容。</p>
+<h3 id="系统之间利用网络通信"><a href="#系统之间利用网络通信" class="headerlink" title="系统之间利用网络通信"></a>系统之间利用网络通信</h3><p>从一个单独的系统来看，网络可视为一个 I/O 设备<br>主存 -&gt; 网络适配器 -&gt; 网络 -&gt; 另一台机器</p>
 
       
 	  <div id="back-to-top" data-scroll="body">
@@ -274,16 +299,16 @@
   
     
 <div class="copyright">
-  <p><span>本文标题:</span><a href="/udontknowjs/">YouDon&#39;tKnowJS记录（一）</a></p>
+  <p><span>本文标题:</span><a href="/深入理解计算机系统笔记（一）/">深入理解计算机系统笔记（一）</a></p>
   <p><span>文章作者:</span>
   	<a href="/" title="访问 Despacito 的个人博客">Despacito</a>
   	<a href="https://github.com/airingursb" title="访问 Despacito 的GitHub"><i class="fa fa-github-alt"></i></a>
   </p>
-  <p><span>发布时间:</span>2017年11月18日 - 09时59分</p>
-  <p><span>最后更新:</span>2018年04月08日 - 21时52分</p>
+  <p><span>发布时间:</span>2018年05月29日 - 15时59分</p>
+  <p><span>最后更新:</span>2018年07月30日 - 14时03分</p>
   <p>
-    <span>原始链接:</span><a class="post-url" href="/udontknowjs/" title="YouDon&#39;tKnowJS记录（一）">http://hellocassie.cn/udontknowjs/</a>
-    <span class="copy-path" data-clipboard-text="原文: http://hellocassie.cn/udontknowjs/　　作者: Despacito" title="点击复制文章链接">
+    <span>原始链接:</span><a class="post-url" href="/深入理解计算机系统笔记（一）/" title="深入理解计算机系统笔记（一）">http://hellocassie.cn/深入理解计算机系统笔记（一）/</a>
+    <span class="copy-path" data-clipboard-text="原文: http://hellocassie.cn/深入理解计算机系统笔记（一）/　　作者: Despacito" title="点击复制文章链接">
         <i class="fa fa-clipboard"></i>
     </span>
   </p>
@@ -298,15 +323,20 @@
 
 <nav id="article-nav">
   
-    <a href="/css类名词汇/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Javascript执行上下文栈/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          css类名词汇
+          Javascript执行上下文栈
         
       </div>
     </a>
   
+  
+    <a href="/前端异常捕获与错误处理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">前端异常捕获与错误处理</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -328,7 +358,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"YouDon'tKnowJS记录（一）　| Despacito Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"深入理解计算机系统笔记（一）　| Despacito Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 </div>
@@ -344,7 +374,7 @@
 	<hr size=1 style="color:#ff9999;border-style:double;color:#CCC"> 
 	<div class="ds-recent-visitors" style="background: rgba(255, 255, 255, .2);" data-num-items="60" data-avatar-size="42" id="ds-recent-visitors"></div>
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="udontknowjs" data-title="YouDon&#39;tKnowJS记录（一）" data-url="http://hellocassie.cn/udontknowjs/"></div>
+	<div class="ds-thread" data-thread-key="深入理解计算机系统笔记（一）" data-title="深入理解计算机系统笔记（一）" data-url="http://hellocassie.cn/深入理解计算机系统笔记（一）/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
