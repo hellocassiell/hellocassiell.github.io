@@ -1915,7 +1915,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #8794f7;
+  background: #3dd428;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3479,14 +3479,14 @@ a {
 }
 .site-master {
   text-align: center;
-  width: 70%;
+  width: 40%;
   margin: auto;
   top: -170px;
   padding: 40px 0;
   padding-bottom: 40px;
   font-size: 16px;
   opacity: 0.98;
-  background: rgba(230,244,249,0.8);
+  background: rgba(230,244,249,0.5);
   z-index: 1;
   animation: b 1s ease-out;
   position: relative;
@@ -3887,7 +3887,7 @@ a {
   }
 }
 .footer-image {
-  background: url("../images/footer.png") no-repeat 50%;
+  background: url("../images/footer.jpg") no-repeat 50%;
   height: 368px;
   z-index: 1;
   position: absolute;
