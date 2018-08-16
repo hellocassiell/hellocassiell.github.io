@@ -185,7 +185,7 @@
 
 
 
-  <title>HI Despacito</title>
+  <title>YouDon'tKnowJS记录（一） | HI Despacito</title>
   
 
 
@@ -213,8 +213,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  ">
+  <div class="container sidebar-position-right page-post-detail">
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><nav class="site-nav">
   
@@ -334,15 +333,241 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-  </section>
 
   
-  <nav class="pagination">
-    
-  </nav>
 
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-date">
+			<div class="post-month">11月</div>
+			<div class="post-day">18</div>
+	</div>
+  
+  <div class="post-badge">
+    
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/js/" itemprop="url" rel="index">
+          <span itemprop="name">js</span>
+        </a>
+      </span>
+    
+  </div>
+  
+
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hellocassie.cn/udontknowjs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Despacito">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-right.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HI Despacito">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">YouDon'tKnowJS记录（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-18T09:59:31+08:00">
+                2017-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">•</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="作用域和闭包"><a href="#作用域和闭包" class="headerlink" title="作用域和闭包"></a>作用域和闭包</h1><h2 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h2><p>(根据名称查找变量的一套规则)<br>js 动态的 弱类型的 编译语言<br><a id="more"></a></p>
+<h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>（语法分析和代码生成）<br>var a = 2;  编译器将它分解为var, a, =, 2, 这么几个词法单元，再将词法单元解析成一个树结构<br>代码生成： 在当前作用域声明一个变量a, 运行时引擎在作用域中查找变量a， 若能找到则赋值</p>
+<h3 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h3><p>LHS查询  找到变量容器本身，从而可以对其赋值  eg: a = 2;<br>RHS查询  取到它的源值   eg: foo(2);</p>
+<p>(最好先在开头把变量全都声明   var a, b, c, d;)</p>
+<h2 id="作用域嵌套"><a href="#作用域嵌套" class="headerlink" title="作用域嵌套"></a>作用域嵌套</h2><p>引擎从当前的执行作用域开始查找变量，找不到则向上一级继续查找，直到抵达最外层的全局作用域</p>
+<p>RHS时，当在所有作用域都找不到该变量，引擎抛出 ReferenceError 异常  eg: console.log(b);<br>LHS时，会创建一个全局变量(非严格模式下)  eg: a=2;</p>
+<p>严格模式(ES5引入)<br>禁止自动或隐式创建全局变量</p>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>由函数所<strong>声明</strong>的位置来定义</p>
+<h3 id="欺骗词法作用域"><a href="#欺骗词法作用域" class="headerlink" title="欺骗词法作用域"></a>欺骗词法作用域</h3><p>（导致编译时无法优化，不要使用）</p>
+<h4 id="1-eval-非严格模式"><a href="#1-eval-非严格模式" class="headerlink" title="1.eval (非严格模式)"></a><strong>1.eval</strong> (非严格模式)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function foo(str, a)&#123;</span><br><span class="line">	eval(str);</span><br><span class="line">   console.log(b, a);</span><br><span class="line">  &#125;</span><br><span class="line"> var b = 2;</span><br><span class="line"> foo(&quot;var b = 3;&quot;, 1); // 3, 1`</span><br></pre></td></tr></table></figure>
+<p> 执行eval(..)后， 引擎并不在意前面的代码是以动态形式插入进来，并对词法作用域的环境进行修改<br>动态生成代码的场景罕见， 影响性能， 尽量避免使用</p>
+<h4 id="2-with-非严格模式"><a href="#2-with-非严格模式" class="headerlink" title="2.with (非严格模式)"></a><strong>2.with</strong> (非严格模式)</h4><p>with 通常被当作重复引用 同一个对象中的多个属性 的快捷方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">	a: 1;</span><br><span class="line">   b: 2;</span><br><span class="line">   c: 3;</span><br><span class="line">   &#125;;</span><br><span class="line">  //重复obj</span><br><span class="line"> obj.a = 2; obj.b = 3; obj.c =4;</span><br><span class="line">  //快捷</span><br><span class="line"> with(obj) &#123;</span><br><span class="line"> a=3; b=4; c=5; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>with 会凭空创建一个全新的词法作用域<br>若console.log(a)  若 obj里没有a属性   with（obj）{a=3;…}会导致 自动创建一个全局变量a</p>
+<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><p>属于这个函数的全部变量可以在整个函数范围内使用及复用</p>
+<ul>
+<li>立即执行函数表达式IIFE     ()();   /     (());</li>
+</ul>
+<h2 id="块作用域"><a href="#块作用域" class="headerlink" title="块作用域"></a>块作用域</h2><p>如  for() 循环   with    try/catch   </p>
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p>let 可以将变量绑定到所在的任意作用域中<br>用{..} 为let 创建一个用于绑定的块<br>使用let 声明 不会在块作用域中进行<strong>提升</strong></p>
+<h2 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h2><p>先声明 再执行<br><strong>只有声明会被提升</strong><br>每个作用域内 声明都会提升<br>顺序：<br><strong>1.函数</strong><br><strong>2.变量</strong><br>重复声明：<br>后面的函数声明覆盖前面的 （以最后的为准）<br>前面的变量声明忽略后面的 （以最前的为准）<br>块内部的函数声明会被提升到所在作用域的顶部， 应避免在<strong>块内部</strong>声明函数<br>如 if(a){function foo() {…}}</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包就是 <strong>能够读取其他函数内部变量的函数</strong><br>作用：<br>1.可以读取函数内部的变量<br>2.让这些变量的值始终保持在内存中 （内存消耗大，不能滥用闭包）（解决方法：在退出函数之前，将不使用的局部变量全部删除）<br>eg: 在函数的内部，再定义一个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function f1()&#123;</span><br><span class="line">　　　　var n=999;</span><br><span class="line">　　　　function f2()&#123;</span><br><span class="line">　　　　　　alert(n); </span><br><span class="line">　　　　&#125;</span><br><span class="line">　　　　return f2;</span><br><span class="line">　　&#125;</span><br><span class="line">　　var result=f1();</span><br><span class="line">　　result(); // 999</span><br></pre></td></tr></table></figure></p>
+<p>eg: 定时器 事件监听器 ajax请求 跨窗口通信 等</p>
+<h3 id="循环和闭包"><a href="#循环和闭包" class="headerlink" title="循环和闭包"></a>循环和闭包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(var i=1;i &lt;=5; i++) &#123;</span><br><span class="line">  		setTimeout( function timer()&#123;</span><br><span class="line">    	console.log(i);&#125;,i*1000);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>输出五次6  与预期不符<br>尽管循环中五个函数在各个迭代中分别定义，但都被<strong>封闭在一个共享的全局作用域中</strong>， 实际上只有一个i<br>在循环中 每个迭代都需要一个闭包作用域<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for(var i=1; i&lt;=5; i++)</span><br><span class="line">&#123; (function() &#123;</span><br><span class="line">	var j = i;</span><br><span class="line">    setTimeout( function timer()&#123;</span><br><span class="line">    	console.log(j);&#125;,j*1000);</span><br><span class="line">        &#125;)();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用let声明"><a href="#使用let声明" class="headerlink" title="使用let声明"></a><strong>使用let声明</strong></h3><p> 重返块作用域<br> let可以劫持块作用域 （本质上是 将一个块转换成一个可以关闭的作用域）<br> for循环头部的let声明 每次迭代都会声明<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(let i=1;i &lt;=5; i++) &#123;</span><br><span class="line"> 		setTimeout( function timer()&#123;</span><br><span class="line">   	console.log(i);&#125;,i*1000);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>为创建内部作用域而调用了一个包装函数<br>包装函数的返回值必须包括至少一个对内部函数的引用</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div class="post-share">分享到：</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Despacito WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Despacito Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/css类名词汇/" rel="prev" title="css类名词汇">
+                css类名词汇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>

@@ -1915,7 +1915,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3dd428;
+  background: #ff88d7;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3887,9 +3887,8 @@ a {
   }
 }
 .footer-image {
-  background: url("../images/footer.jpg") no-repeat 50%;
   height: 368px;
-  z-index: 1;
+  z-index: -1;
   position: absolute;
   bottom: 48px;
   width: 100%;

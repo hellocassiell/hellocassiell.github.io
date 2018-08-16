@@ -185,7 +185,7 @@
 
 
 
-  <title>HI Despacito</title>
+  <title>前端异常捕获与错误处理 | HI Despacito</title>
   
 
 
@@ -213,8 +213,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  ">
+  <div class="container sidebar-position-right page-post-detail">
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><nav class="site-nav">
   
@@ -334,15 +333,262 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-  </section>
 
   
-  <nav class="pagination">
-    
-  </nav>
 
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-date">
+			<div class="post-month">05月</div>
+			<div class="post-day">18</div>
+	</div>
+  
+  <div class="post-badge">
+    
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/others/" itemprop="url" rel="index">
+          <span itemprop="name">others</span>
+        </a>
+      </span>
+    
+  </div>
+  
+
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hellocassie.cn/前端异常捕获与错误处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Despacito">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-right.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HI Despacito">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端异常捕获与错误处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-18T15:59:23+08:00">
+                2018-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">•</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/others/" itemprop="url" rel="index">
+                    <span itemprop="name">others</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="throw"><a href="#throw" class="headerlink" title="throw"></a>throw</h2><p>使用throw语句抛出一个异常</p>
+<ul>
+<li><p>可以抛出任意表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">throw &apos;Error2&apos;;   // String type</span><br><span class="line">throw 42;         // Number type</span><br><span class="line">throw true;       // Boolean type</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+</li>
+<li><p>可以在抛出异常时声明一个对象，那你就可以在catch块中查询到对象的属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.</span><br><span class="line">throw &#123;</span><br><span class="line">  toString: function() &#123;</span><br><span class="line">    return &apos;I&apos;m an object!&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">2.</span><br><span class="line">function UserException (message)&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">throw new UserException(&apos;Value too high&apos;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>作用范围就是阻断一个 script 标签内的程序运行，但是不会影响下面的 script。</p>
+</blockquote>
+<h2 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a>try…catch</h2><p>try…catch 语句有一个包含一条或者多条语句的try代码块，0个或多个的catch代码块，catch代码块中的语句会在try代码块中抛出异常时执行。finally 代码块总会紧跟在try和catch代码块之后执行。</p>
+<ul>
+<li>用try块来执行代码，抛出异常。</li>
+<li>用catch块来处理所有可能在try块中产生的异常。</li>
+<li>用finally块来令你的脚本在异常发生时优雅地退出。<blockquote>
+<p>如果finally块返回一个值，该值会是整个try-catch-finally流程的返回值。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Error对象"><a href="#Error对象" class="headerlink" title="Error对象"></a>Error对象</h2><p>name：错误名称<br>message：错误提示信息<br>stack：错误的堆栈（非标准属性，但是大多数平台支持）</p>
+<p>Error对象是最一般的错误类型，在它的基础上，JavaScript还定义了其他6种错误，也就是说，存在Error的6个派生对象。</p>
+<p>1、SyntaxError //解析代码时发生的语法错误<br>2、ReferenceError //引用一个不存在的变量时发生的错误<br>3、RangeError //当一个值超出有效范围时发生的错误<br>4、TypeError //变量或参数不是预期类型时发生的错误<br>5、URIError //URI相关函数的参数不正确时抛出的错误<br>6、EvalError //eval函数没有被正确执行时，会抛出EvalError错误</p>
+<p>可以自定义Error对象</p>
+<h2 id="异步函数的异常捕获"><a href="#异步函数的异常捕获" class="headerlink" title="异步函数的异常捕获"></a>异步函数的异常捕获</h2><ul>
+<li>常见的异步模型</li>
+</ul>
+<p>1 高阶函数（泛函数）<br>把函数作为参数送入，然后回调。<br>2 事件监听<br>3 发布/订阅( Pub/Sub )<br>4 Promise 对象</p>
+<blockquote>
+<p>某个函数会导致将来再运行的另一个函数，后者取自于事件队列（若后面这个函数是作为参数传递给前者的，则称其为回调函数，简称为回调）。</p>
+</blockquote>
+<p>try/catch无法捕捉异步回调里的异常，无法捕捉到语法错误，也没法去捕捉全局的异常事件。</p>
+<blockquote>
+<p>因为异步函数的回调是在事件队列里单独拉出来执行的。所以在异步函数外面包裹try-catch是无法捕捉到回调函数里抛出的异常的。因为当回调函数从队列里被拉出来执行的时候try-catch所在的代码块已经执行完毕了。</p>
+</blockquote>
+<p>当回调里的异常被抛出但没被捕获的时候，该异常会直接被主程序所捕获。在浏览器里可以通过window.onerror，在node里通过process.uncaughtException可以捕获此类异常。</p>
+<ul>
+<li>Promise不需要使用try…catch，直接使用.catch()</li>
+<li>Generator 可以直接使用co 函数库来使用try…catch</li>
+<li>async 和 await 可以直接使用try…catch</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div class="post-share">分享到：</div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Despacito WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Despacito Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/others/" rel="tag"># others</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/h5距离追踪器/" rel="next" title="用HTML5 Geolocation实现一个距离追踪器">
+                <i class="fa fa-chevron-left"></i> 用HTML5 Geolocation实现一个距离追踪器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/深入理解计算机系统笔记（一）/" rel="prev" title="深入理解计算机系统笔记（一）">
+                深入理解计算机系统笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
