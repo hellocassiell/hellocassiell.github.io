@@ -187,7 +187,7 @@
 
 
 
-  <title>用HTML5 Geolocation实现一个距离追踪器 | HI Despacito</title>
+  <title>HI Despacito</title>
   
 
 
@@ -215,7 +215,8 @@
     
   
 
-  <div class="container sidebar-position-right page-post-detail">
+  <div class="container sidebar-position-right 
+  ">
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><nav class="site-nav">
   
@@ -335,228 +336,15 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+  </section>
 
   
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-date">
-			<div class="post-month">04月</div>
-			<div class="post-day">06</div>
-	</div>
-  
-  <div class="post-badge">
+  <nav class="pagination">
     
-      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-        <a href="/categories/html5/" itemprop="url" rel="index">
-          <span itemprop="name">html5</span>
-        </a>
-      </span>
-    
-  </div>
-  
+  </nav>
 
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hellocassie.cn/h5距离追踪器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Despacito">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-right.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HI Despacito">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">用HTML5 Geolocation实现一个距离追踪器</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-06T15:16:26+08:00">
-                2018-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">•</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/html5/" itemprop="url" rel="index">
-                    <span itemprop="name">html5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>HTML5 Geolocation（地理定位）用于定位用户的位置。那么如何实现一个距离追踪器呢？我的思路是这样的，前提是浏览器支持h5地理定位，在这个基础上，获取用户位置，更新用户位置，计算距离，显示到页面，这样就简单实现了一个距离追踪器，为了用户更清楚地看到当前位置，这里接入了百度地图API。<br><a id="more"></a><br>页面结构如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;container&quot;&gt;</span><br><span class="line">			&lt;section&gt;</span><br><span class="line">				&lt;article&gt;</span><br><span class="line">					&lt;header&gt;</span><br><span class="line">						&lt;h1&gt;Your Location&lt;/h1&gt;</span><br><span class="line">					&lt;/header&gt;</span><br><span class="line">					&lt;p class=&quot;info&quot; id=&quot;status&quot;&gt;您的浏览器不支持HTML5 Geolocation。&lt;/p&gt;</span><br><span class="line">					&lt;div class=&quot;geostatus&quot;&gt;</span><br><span class="line">						&lt;p id=&quot;latitude&quot;&gt;纬度:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;longitude&quot;&gt;经度:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;accuracy&quot;&gt;准确度:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;timestamp&quot;&gt;时间戳:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;currDist&quot;&gt;目前旅行距离:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">						&lt;p id=&quot;totalDist&quot;&gt;旅行总距离:&amp;nbsp;&amp;nbsp;&lt;/p&gt;</span><br><span class="line">					&lt;/div&gt;</span><br><span class="line">				&lt;/article&gt;</span><br><span class="line">			&lt;/section&gt;</span><br><span class="line">			&lt;!-- 百度地图位置显示 --&gt;</span><br><span class="line">			&lt;div id=&quot;allmap&quot;&gt;&lt;/div&gt;    </span><br><span class="line">		&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="判断浏览器是否支持HTML5-Geolocation"><a href="#判断浏览器是否支持HTML5-Geolocation" class="headerlink" title="判断浏览器是否支持HTML5 Geolocation"></a>判断浏览器是否支持HTML5 Geolocation</h2><p>在body加载时调用loadDemo()方法，方法根据navigator.geolocation来判断浏览器是否支持HTML5 Geolocation；如果navigator.geolocation为true，那么我们就可以开始对用户位置进行获取更新</p>
-<h2 id="实时获取用户位置"><a href="#实时获取用户位置" class="headerlink" title="实时获取用户位置"></a>实时获取用户位置</h2><p>HTML5可以通过getCurrentPosition() 方法来获得用户的位置。但这个只获取一次，所以我们选用了<br>watchPosition()这个方法，它能返回用户的当前位置，并继续返回用户移动时的更新位置（就像汽车上的GPS）。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">navigator.geolocation.watchPosition(updateLocation, handleLocationError, &#123;</span><br><span class="line">						timeout: 10000</span><br><span class="line">					&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>在不断获取位置的同时，调用updateLocation这个方法，把位置情况显示在页面上，当然还要调用计算距离的方法来获取距离，以及不断更新百度地图上的位置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var latitude = position.coords.latitude;</span><br><span class="line">				var longitude = position.coords.longitude;</span><br><span class="line">				var accuracy = position.coords.accuracy;</span><br><span class="line">				var timestamp = position.timestamp;</span><br><span class="line">				document.getElementById(&quot;latitude&quot;).innerHTML = &quot;纬度:&amp;nbsp;&amp;nbsp;&quot; + latitude;</span><br><span class="line">				document.getElementById(&quot;longitude&quot;).innerHTML = &quot;经度:&amp;nbsp;&amp;nbsp;&quot; + longitude;</span><br><span class="line">				document.getElementById(&quot;accuracy&quot;).innerHTML = &quot;准确度:&amp;nbsp;&amp;nbsp;&quot; + accuracy;</span><br><span class="line">				document.getElementById(&quot;timestamp&quot;).innerHTML = &quot;时间戳:&amp;nbsp;&amp;nbsp;&quot; + timestamp;</span><br><span class="line">				if(accuracy &gt;= 30000) &#123;</span><br><span class="line">					updateStatus(&quot;Need more accurate values to calculate distance.&quot;);</span><br><span class="line">					return;</span><br><span class="line">				&#125;</span><br><span class="line">				if((lastLat != null) &amp;&amp; (lastLong != null)) &#123;</span><br><span class="line">					var currentDistance = distance(latitude, longitude, lastLat, lastLong);</span><br><span class="line">					document.getElementById(&quot;currDist&quot;).innerHTML = &quot;目前旅行距离:&amp;nbsp;&amp;nbsp;&quot; + currentDistance.toFixed(2) + &quot;km&quot;;</span><br><span class="line">					totalDistance += currentDistance;</span><br><span class="line">					document.getElementById(&quot;totalDist&quot;).innerHTML = &quot;旅行总距离:&amp;nbsp;&amp;nbsp;&quot; + currentDistance.toFixed(2) + &quot;km&quot;;</span><br><span class="line">					updateStatus(&quot;Location successfully updated.&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">				lastLat = latitude;</span><br><span class="line">				lastLong = longitude;</span><br></pre></td></tr></table></figure></p>
-<h2 id="计算距离"><a href="#计算距离" class="headerlink" title="计算距离"></a>计算距离</h2><p>把开始位置和当前位置的经度纬度作为参数放入函数，通过换算，来计算距离（单位为km)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Number.prototype.toRadians = function() &#123;</span><br><span class="line">				return this * Math.PI / 180;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">function distance(latitude1, longitude1, latitude2, longitude2) &#123;</span><br><span class="line">				var R = 6371;</span><br><span class="line">				var deltaLatitude = (latitude2 - latitude1).toRadians();</span><br><span class="line">				var deltaLongitude = (longitude2 - longitude1).toRadians();</span><br><span class="line">				latitude1 = latitude1.toRadians(), latitude2 = latitude2.toRadians();</span><br><span class="line">				var a = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2);</span><br><span class="line">				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));</span><br><span class="line">				var d = R * c;</span><br><span class="line">				return d;</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="百度地图API接入"><a href="#百度地图API接入" class="headerlink" title="百度地图API接入"></a>百度地图API接入</h2><p>要用百度地图API，你需要注册百度账号，申请成为百度开发者然后获取一个密钥，才能使用相关服务<br> <a href="http://lbsyun.baidu.com/index.php?title=jspopular" target="_blank" rel="noopener">戳这</a> 根据文档你可以知道如何使用这个API<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var map = new BMap.Map(&quot;allmap&quot;); // 创建Map实例</span><br><span class="line">			map.centerAndZoom(new BMap.Point(longitude, latitude), 14); //设置中心点坐标和地图级别</span><br><span class="line">			map.addControl(new BMap.MapTypeControl()); //添加地图类型控件</span><br><span class="line">			map.setCurrentCity(&quot;南昌&quot;); //显示城市,此项必须设置</span><br><span class="line">			map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放</span><br><span class="line">			// 以下为当前位置标注设置</span><br><span class="line">			var point = new BMap.Point(longitude, latitude);</span><br><span class="line">			map.centerAndZoom(point, 14);</span><br><span class="line">			var marker = new BMap.Marker(point); //创建标注</span><br><span class="line">			map.addOverlay(marker); //将标注添加到地图中</span><br><span class="line">			marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画</span><br><span class="line">			// 百度地图API功能--------end</span><br></pre></td></tr></table></figure></p>
-<p>记得先引入一个script标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;http://api.map.baidu.com/api?v=2.0&amp;ak=你的密钥&quot; &gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p><img src="http://ozlrrk52c.bkt.clouddn.com/%E5%9C%B0%E7%90%86%E5%AE%9A%E4%BD%8D.png" alt=""></p>
-<p><a href="https://hellocassie.cn">我的博客</a>，欢迎交流！<br><a href="https://github.com/hellocassiell/H5-Pedometer" target="_blank" rel="noopener">源码戳这</a></p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-      <div class="post-share">分享到：</div>
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div></div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>Donate</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="Despacito WeChat Pay"/>
-        <p>WeChat Pay</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="Despacito Alipay"/>
-        <p>Alipay</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/html5/" rel="tag"># html5</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/Javascript面向对象与继承/" rel="next" title="Javascript面向对象与继承">
-                <i class="fa fa-chevron-left"></i> Javascript面向对象与继承
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/前端异常捕获与错误处理/" rel="prev" title="前端异常捕获与错误处理">
-                前端异常捕获与错误处理 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>

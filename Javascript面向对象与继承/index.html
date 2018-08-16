@@ -185,7 +185,7 @@
 
 
 
-  <title>Javascript面向对象与继承 | HI Despacito</title>
+  <title>HI Despacito</title>
   
 
 
@@ -213,7 +213,8 @@
     
   
 
-  <div class="container sidebar-position-right page-post-detail">
+  <div class="container sidebar-position-right 
+  ">
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><nav class="site-nav">
   
@@ -333,244 +334,15 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+  </section>
 
   
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-date">
-			<div class="post-month">04月</div>
-			<div class="post-day">01</div>
-	</div>
-  
-  <div class="post-badge">
+  <nav class="pagination">
     
-      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-        <a href="/categories/js/" itemprop="url" rel="index">
-          <span itemprop="name">js</span>
-        </a>
-      </span>
-    
-  </div>
-  
+  </nav>
 
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hellocassie.cn/Javascript面向对象与继承/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Despacito">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-right.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HI Despacito">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Javascript面向对象与继承</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-01T09:59:31+08:00">
-                2018-04-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">•</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>众所周知，Javascript是一门面向对象的语言，如果说针对面向对象来发问的话，我会想到两个问题，在js中，类与实例对象是如何创建的，类与实例对象又是如何实现继承的。<br><a id="more"></a></p>
-<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h3 id="如何声明一个类"><a href="#如何声明一个类" class="headerlink" title="如何声明一个类"></a>如何声明一个类</h3><p>ES5中，还没有类的概念，而是通过函数来声明；到了ES6，有了class关键字，则通过class来声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 类的声明</span><br><span class="line">var Animal = function () &#123;</span><br><span class="line">    this.name = &apos;Animal&apos;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// es6中class的声明</span><br><span class="line">class Animal2 &#123;</span><br><span class="line">    constructor () &#123;</span><br><span class="line">        this.name = &apos;Animal2&apos;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="如何创建对象"><a href="#如何创建对象" class="headerlink" title="如何创建对象"></a>如何创建对象</h3><p>1.字面量对象<br>2.显示的构造函数<br>3.Object.create<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 第一种方式：字面量</span><br><span class="line">var o1 = &#123;name: &apos;o1&apos;&#125;;</span><br><span class="line">var o2 = new Object(&#123;name: &apos;o2&apos;&#125;);</span><br><span class="line">// 第二种方式：构造函数</span><br><span class="line">var M = function (name) &#123; this.name = name; &#125;;</span><br><span class="line">var o3 = new M(&apos;o3&apos;);</span><br><span class="line">// 第三种方式：Object.create</span><br><span class="line">var p = &#123;name: &apos;p&apos;&#125;;</span><br><span class="line">var o4 = Object.create(p);</span><br></pre></td></tr></table></figure></p>
-<h2 id="类与继承"><a href="#类与继承" class="headerlink" title="类与继承"></a>类与继承</h2><p>如何实现继承?<br><strong>继承的本质就是原型链</strong></p>
-<h3 id="借助构造函数实现继承"><a href="#借助构造函数实现继承" class="headerlink" title="借助构造函数实现继承"></a>借助构造函数实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 借助构造函数实现继承</span><br><span class="line"> */</span><br><span class="line">function Parent1 () &#123;</span><br><span class="line">    this.name = &apos;parent1&apos;;</span><br><span class="line">&#125;</span><br><span class="line">Parent1.prototype.say = function () &#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">function Child1 () &#123;</span><br><span class="line">    Parent1.call(this); // 或Parent1.apply(this,arguments)</span><br><span class="line">    this.type = &apos;child1&apos;;</span><br><span class="line">&#125;</span><br><span class="line">console.log(new Child1(), new Child1().say());</span><br></pre></td></tr></table></figure>
-<p>重点是这句：Parent1.call(this); 在子类的构造函数里执行父类的构造函数，通过call/apply改变this指向，从而导致父类构造函数执行时的这些属性都会挂载到子类实例上去。<br>问题： 只能继承父类构造函数中声明的实例属性，并没有继承父类原型的属性和方法</p>
-<h3 id="借助原型链实现继承"><a href="#借助原型链实现继承" class="headerlink" title="借助原型链实现继承"></a>借助原型链实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 借助原型链实现继承</span><br><span class="line"> */</span><br><span class="line">function Parent2 () &#123;</span><br><span class="line">    this.name = &apos;parent2&apos;;</span><br><span class="line">    this.play = [1, 2, 3];</span><br><span class="line">&#125;</span><br><span class="line">function Child2 () &#123;</span><br><span class="line">    this.type = &apos;child2&apos;;</span><br><span class="line">&#125;</span><br><span class="line">Child2.prototype = new Parent2();</span><br><span class="line"></span><br><span class="line">var s1 = new Child2();</span><br><span class="line">var s2 = new Child2();</span><br><span class="line">console.log(s1.play, s2.play);</span><br><span class="line">s1.play.push(4);</span><br></pre></td></tr></table></figure>
-<p>重点就是这句： Child2.prototype = new Parent2();  就是说 new 一个父类的实例，然后赋给子类的原型 也就是说 new Child2().<strong>proto</strong> === Child2.prototype === new Parent2()当我们在new Child2()中找不到属性/方法，顺着原型链就能找到new Parent2()，这样就实现了继承。<br>问题： 原型链中的原型对象是共用的，子类无法通过父类创建私有属性<br>比如当你new两个子类s1、s2的时候，改s1的属性，s2的属性也跟着改变</p>
-<h3 id="组合式继承"><a href="#组合式继承" class="headerlink" title="组合式继承"></a>组合式继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 组合方式</span><br><span class="line"> */</span><br><span class="line">function Parent3 () &#123;</span><br><span class="line">    this.name = &apos;parent3&apos;;</span><br><span class="line">    this.play = [1, 2, 3];</span><br><span class="line">&#125;</span><br><span class="line">function Child3 () &#123;</span><br><span class="line">    Parent3.call(this); // 父类构造函数执行了</span><br><span class="line">    this.type = &apos;child3&apos;;</span><br><span class="line">&#125;</span><br><span class="line">Child3.prototype = new Parent3(); // 父类构造函数执行了</span><br><span class="line">var s3 = new Child3(); </span><br><span class="line">var s4 = new Child3();</span><br><span class="line">s3.play.push(4);</span><br><span class="line">console.log(s3.play, s4.play);</span><br></pre></td></tr></table></figure>
-<p>组合式就是原型链+构造函数继承，解决了前两种方法的问题，但也有不足：子类实例化时，父类构造函数执行了两次，所以有了下面的组合继承的优化1</p>
-<h3 id="组合继承的优化1"><a href="#组合继承的优化1" class="headerlink" title="组合继承的优化1"></a>组合继承的优化1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">       * 组合继承的优化1</span><br><span class="line">       * @type &#123;String&#125;</span><br><span class="line">       */</span><br><span class="line">      function Parent4 () &#123;</span><br><span class="line">          this.name = &apos;parent4&apos;;</span><br><span class="line">          this.play = [1, 2, 3];</span><br><span class="line">      &#125;</span><br><span class="line">      function Child4 () &#123;</span><br><span class="line">          Parent4.call(this);</span><br><span class="line">          this.type = &apos;child4&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">      Child4.prototype = Parent4.prototype;</span><br><span class="line">      var s5 = new Child4();</span><br><span class="line">      var s6 = new Child4();</span><br><span class="line">      console.log(s5, s6);</span><br><span class="line"></span><br><span class="line">      console.log(s5 instanceof Child4, s5 instanceof Parent4);</span><br><span class="line">      console.log(s5.constructor);</span><br></pre></td></tr></table></figure>
-<p>其实就是把原型链继承的那句 Child4.prototype = new Parent4(); 改为 Child4.prototype = Parent4.prototype;  这样虽然父类构造函数只执行了一次了，但又有了新的问题： 无法判断s5是Child4的实例还是Parent4的实例  因为Child4.prototype.constructor指向了Parent4的实例；如果直接加一句 Child4.prototype.constructor = Child4  也不行，这样Parent4.prototype.constructor也指向Child4，就无法区分父类实例了。</p>
-<blockquote>
-<p>  若要判断a是A的实例  用constructor<br> a.<strong>proto</strong>.constructor === A<br>用instanceof则不准确， instanceof 判断 实例对象的<strong>proto</strong> 是不是和 构造函数的prototype 是同一个引用。若A 继承 B， B 继承 C  在该原型链上的对象 用instanceof判断都返回ture </p>
-</blockquote>
-<h3 id="组合继承的优化2-推荐"><a href="#组合继承的优化2-推荐" class="headerlink" title="组合继承的优化2(推荐)"></a>组合继承的优化2(推荐)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">       * 组合继承的优化2</span><br><span class="line">       */</span><br><span class="line">      function Parent5 () &#123;</span><br><span class="line">          this.name = &apos;parent5&apos;;</span><br><span class="line">          this.play = [1, 2, 3];</span><br><span class="line">      &#125;</span><br><span class="line">      function Child5 () &#123;</span><br><span class="line">          Parent5.call(this);</span><br><span class="line">          this.type = &apos;child5&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">      //注意此处,用到了Object.creat(obj)方法，该方法会对传入的obj对象进行浅拷贝</span><br><span class="line">      //这个方法作为一个桥梁，达到父类和子类的一个隔离</span><br><span class="line">      Child5.prototype = Object.create(Parent5.prototype);</span><br><span class="line">      //修改构造函数指向</span><br><span class="line">      Child5.prototype.constructor = Child5</span><br></pre></td></tr></table></figure>
-<p>构造函数属性继承和建立子类和父类原型的链接</p>
-<h3 id="ES6实现继承"><a href="#ES6实现继承" class="headerlink" title="ES6实现继承"></a>ES6实现继承</h3><p>引入了class、extends、super关键字，在子类构造函数里调用super()方法来调用父类的构造函数。<br>在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Child6 extends Parent6 &#123;</span><br><span class="line">      constructor(x, y, color) &#123;</span><br><span class="line">        super(x, y); // 调用父类的constructor(x, y)</span><br><span class="line">        this.color = color;</span><br><span class="line">      &#125;</span><br><span class="line">      toString() &#123;</span><br><span class="line">        return this.color + &apos; &apos; + super.toString(); // super代表父类原型，调用父类的toString()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="class实现原理"><a href="#class实现原理" class="headerlink" title="class实现原理"></a>class实现原理</h4><p>Class充当了ES5中构造函数在继承实现过程中的作用<br>有prototype属性，有<strong>proto</strong>属性，这个属性在ES6中的指向有一些主动的修改。<br>同时存在两条继承链：一条实现属性继承，一条实现方法继承。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class A extends B &#123;&#125;</span><br><span class="line">A.__proto__ === B;  //继承属性</span><br><span class="line">A.prototype.__proto__ === B.prototype;  //继承方法</span><br></pre></td></tr></table></figure></p>
-<p>ES6的子类的<strong>proto</strong>是父类，子类的原型的<strong>proto</strong>是父类的原型。<br>但是在ES5中 A.<strong>proto</strong>是指向Function.prototype的，因为每一个构造函数其实都是Function这个对象构造的，ES6中子类的<strong>proto</strong>指向父类可以实现属性的继承。</p>
-<blockquote>
-<p>只有函数有prototype属性，只有对象有<strong>proto</strong>属性 ；但函数也有<strong>proto</strong>属性，因为函数也是一个对象，函数的<strong>proto</strong>等于 Function.prototype。</p>
-</blockquote>
-<h4 id="extends实现原理"><a href="#extends实现原理" class="headerlink" title="extends实现原理"></a>extends实现原理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//原型连接</span><br><span class="line">Man.prototype = Object.create(Person.prototype); </span><br><span class="line">// B继承A的静态属性</span><br><span class="line">Object.setPrototypeOf(Man, Person);</span><br><span class="line">//绑定this</span><br><span class="line">Person.call(this);</span><br></pre></td></tr></table></figure>
-<p>前两句实现了原型链上的继承，最后一句实现构造函数上的继承。</p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-      <div class="post-share">分享到：</div>
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div></div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>Donate</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="Despacito WeChat Pay"/>
-        <p>WeChat Pay</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="Despacito Alipay"/>
-        <p>Alipay</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/js/" rel="tag"># js</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/css类名词汇/" rel="next" title="css类名词汇">
-                <i class="fa fa-chevron-left"></i> css类名词汇
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/h5距离追踪器/" rel="prev" title="用HTML5 Geolocation实现一个距离追踪器">
-                用HTML5 Geolocation实现一个距离追踪器 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
