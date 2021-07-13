@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>从输入URL到页面展示 | HI DESPACITO</title><meta name="keywords" content="前端"><meta name="author" content="cassie"><meta name="copyright" content="cassie"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="当我们输入 URL 并按回车后，浏览器会对 URL 进行检查，首先判断URL格式，比如是ftp http ed2k等等，我们这里假设这个URL是http:&#x2F;&#x2F;xx.cn，那么浏览器会对这个 URL 进行安全检查，然后浏览器内核会先查看缓存，再决定是发起请求，下载页面，还是从缓存获取页面，如果是第一次访问，这时候还没有缓存，所以会去向服务器发起一个网络请求。  下载页面首先我们要确定服务器的网络地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从输入URL到页面展示">
+<meta property="og:url" content="https://hellocassiell.github.io/2018/08/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA/index.html">
+<meta property="og:site_name" content="HI DESPACITO">
+<meta property="og:description" content="当我们输入 URL 并按回车后，浏览器会对 URL 进行检查，首先判断URL格式，比如是ftp http ed2k等等，我们这里假设这个URL是http:&#x2F;&#x2F;xx.cn，那么浏览器会对这个 URL 进行安全检查，然后浏览器内核会先查看缓存，再决定是发起请求，下载页面，还是从缓存获取页面，如果是第一次访问，这时候还没有缓存，所以会去向服务器发起一个网络请求。  下载页面首先我们要确定服务器的网络地址">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hellocassiell.github.io/img/7.jpg">
+<meta property="article:published_time" content="2018-08-20T01:59:31.000Z">
+<meta property="article:modified_time" content="2021-07-13T09:30:32.369Z">
+<meta property="article:author" content="cassie">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hellocassiell.github.io/img/7.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://hellocassiell.github.io/2018/08/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//s4.cnzz.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script async="async" data-pjax="data-pjax" src="https://s4.cnzz.com/z_stat.php?id=1277978246&amp;web_id=1277978246"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: cassie","link":"链接: ","source":"来源: HI DESPACITO","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-13 17:30:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/atom-one-dark.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/7.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">HI DESPACITO</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从输入URL到页面展示<a class="post-edit-link" href="https://github.com/hellocassiell/blog/tree/master/source/_posts/从输入URL到页面展示.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-08-20T01:59:31.000Z" title="发表于 2018-08-20 09:59:31">2018-08-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-13T09:30:32.369Z" title="更新于 2021-07-13 17:30:32">2021-07-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B1%BB/">面试题类</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从输入URL到页面展示"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>当我们输入 URL 并按回车后，浏览器会对 URL 进行检查，首先判断URL格式，比如是ftp http ed2k等等，我们这里假设这个URL是<code>http://xx.cn</code>，那么浏览器会对这个 URL 进行安全检查，然后浏览器内核会先查看缓存，再决定是发起请求，下载页面，还是从缓存获取页面，如果是第一次访问，这时候还没有缓存，所以会去向服务器发起一个网络请求。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/354/557/3545577200-5ba1ab7721230_articlex" alt="clipboard.png"></p>
+<h3 id="下载页面"><a href="#下载页面" class="headerlink" title="下载页面"></a>下载页面</h3><p>首先我们要确定服务器的网络地址，才能把请求发给它，所以要把这个URL转换成对应的IP地址，浏览器会依次从浏览器缓存，系统缓存，路由器缓存，本地DNS服务器进行一个递归查询，如果本地DNS服务器也没有对应的IP地址的记录，这时候它会把请求发至13台根域名服务器，根域名服务器收到请求后会判断这个域名是谁来授权管理，然后返回一个负责该顶级域名服务器的一个IP。本地DNS服务器收到IP信息后，再去联系顶级域名服务器。顶级域名服务器收到请求后，如果自己无法解析，再返回下一级域名服务器的IP，进行这样一个迭代查询之后，一直到子域名服务器。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/363/309/3633098501-5ba1abeddbee9_articlex" alt="clipboard.png"></p>
+<p>这个时候有两种情况，第一种是子域名服务器返回了这个URL对应的IP地址，第二种情况是经过了CDN调度，如果目标网站使用了CDN服务，则需要在CDN服务商的平台设置相应的CNAME记录，这个记录是CDN服务厂商的一个DNS服务器的域名，子域名服务器会返回这个CNAME记录，本地DNS服务器得到这个记录后，会向CDN服务厂商的DNS服务器查询，然后CDN服务厂商的DNS服务器返回CDN服务厂商的一台GSLB设备（全局负载均衡设备）的IP，本地DNS服务器携带自身的IP地址和要查询的域名向GSLB设备发起请求，GSLB设备根据IP，以及要查询的域名，选择一台用户所属区域的区域负载均衡设备，区域负载均衡设备根据一定的算法和策略，会向GSLB设备返回一个最适合的CDN节点的IP地址，比如说返回一个距离用户最近的CDN节点，因为CDN服务器缓存了网站的源服务器的数据，而且会像源服务器一样，响应用户的请求. 而且它离用户更近，所以能获得更快的响应速度。最后本地DNS服务器拿到这个CDN节点的IP地址。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/673/033/673033083-5ba1ae16cd5a5_articlex" alt="clipboard.png"></p>
+<p>得到IP后，会建立TCP连接，如果是https开头的URL，还会建立SSL连接，进行一个请求证书，生成对话密钥的过程。<br>然后开始进行HTTP请求，浏览器会先生成一个HTTP数据包，包含这次请求的信息，主要是请求方法、请求的说明和请求附带的数据，这个HTTP数据包经过传输层，头部加入双方的端口信息，被封装成一个TCP数据包，然后经过网络层，头部加入双方的IP地址信息，被封装成一个IP数据包，然后经过数据链路层，头部设置双方的MAC地址，封装成以太网数据包，最后变成二进制数据，传送到服务器。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/203/685/203685265-5ba1aeed692d0_articlex" alt="clipboard.png"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/421/982/4219826509-5ba1aeffef081_articlex" alt="clipboard.png"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/109/053/1090536528-5ba1af1768b92_articlex" alt="clipboard.png"></p>
+<p>然后服务器作出响应，返回一个HTTP报文给浏览器，这个HTTP报文包含了状态行，消息报头，消息正文(就是HTML)。</p>
+<h3 id="缓存获取页面"><a href="#缓存获取页面" class="headerlink" title="缓存获取页面"></a>缓存获取页面</h3><p>然后我们再看第二种情况，如果本地有缓存，浏览器会先判断缓存是否过期，通过Expires和Cache-Control字段来判断是否命中强制缓存，Expires是服务器返回该请求结果缓存的到期时间，Cache-Control的max-age会返回一个相对时间，因为无法确定客户端的时间是否与服务端的时间同步，所以同时存在时，Cache-Control的优先级更高。<br>如果强制缓存失效，进行协商缓存过程，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用本地缓存。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/985/379/985379536-5ba1b131944ef_articlex" alt="clipboard.png"></p>
+<h3 id="渲染页面"><a href="#渲染页面" class="headerlink" title="渲染页面"></a>渲染页面</h3><p>在解析HTML的过程中，开始构建DOM树，当遇到外链资源比如CSS/JS，浏览器会并行下载 CSS 和 JavaScript，<br>CSS下载时异步，不会阻塞浏览器构建DOM树，但是会阻塞渲染，<br>JS会阻塞HTML的解析，需等待脚本下载完成并执行后才会继续解析HTML，<br>而且因为 JS 可能会查询 CSSOM，所以必须在下载 CSS 文件之前将其阻止，然后才能执行 JavaScript。<br>img图片类资源会异步下载，不会阻塞解析，下载完毕后直接用图片替换原有src的地方。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/198/716/1987167191-5ba1b1a7e5f80_articlex" alt="clipboard.png"></p>
+<p>然后合并DOM树和CSSOM树，生成render树，从 DOM 树的根节点开始遍历每个可见节点，忽略脚本标记、元标记、display: none的节点，对于每个可见节点，为其找到适配的 CSSOM 规则并应用它们。<br>然后开始布局，从渲染树的根节点开始进行遍历，计算每个节点在网页的确切位置和大小。<br>布局完成后，将渲染树转换成屏幕上的像素，显示页面。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/775/090/77509042-5ba1b268d47cc_articlex" alt="clipboard.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">cassie</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hellocassiell.github.io/2018/08/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA/">https://hellocassiell.github.io/2018/08/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hellocassiell.github.io" target="_blank">HI DESPACITO</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post_share"><div class="social-share" data-image="/img/7.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">cassie</div><div class="author-info__description">Before you quit,Try</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hellocassiell"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/hellocassiell" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:v5ant@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">一个以Web前端开发为主的学习,进阶,交流,分享资源的博客。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E9%A1%B5%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">下载页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E8%8E%B7%E5%8F%96%E9%A1%B5%E9%9D%A2"><span class="toc-number">2.</span> <span class="toc-text">缓存获取页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.</span> <span class="toc-text">渲染页面</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2018/08/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA/" title="从输入URL到页面展示"><img data-lazy-src="/img/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从输入URL到页面展示"/></a><div class="content"><a class="title" href="/2018/08/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA/" title="从输入URL到页面展示">从输入URL到页面展示</a><time datetime="2018-08-20T01:59:31.000Z" title="发表于 2018-08-20 09:59:31">2018-08-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/7.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By cassie</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><a href="https://beian.miit.gov.cn/"  target="_blank">晋ICP备16005245号-5</a></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '0dRsbpsRF1nGv05qtTfG3yaO-gzGzoHsz',
+      appKey: 'vYOmHvLIqyDY1AgnpdxDrM8E',
+      placeholder: '发表下你的高见O(∩_∩)O',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

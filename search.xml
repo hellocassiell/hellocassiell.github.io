@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>从输入URL到页面展示</title>
+      <link href="2018/08/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA/"/>
+      <url>2018/08/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA/</url>
+      
+        <content type="html"><![CDATA[<p>当我们输入 URL 并按回车后，浏览器会对 URL 进行检查，首先判断URL格式，比如是ftp http ed2k等等，我们这里假设这个URL是<code>http://xx.cn</code>，那么浏览器会对这个 URL 进行安全检查，然后浏览器内核会先查看缓存，再决定是发起请求，下载页面，还是从缓存获取页面，如果是第一次访问，这时候还没有缓存，所以会去向服务器发起一个网络请求。</p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/354/557/3545577200-5ba1ab7721230_articlex" alt="clipboard.png"></p><h3 id="下载页面"><a href="#下载页面" class="headerlink" title="下载页面"></a>下载页面</h3><p>首先我们要确定服务器的网络地址，才能把请求发给它，所以要把这个URL转换成对应的IP地址，浏览器会依次从浏览器缓存，系统缓存，路由器缓存，本地DNS服务器进行一个递归查询，如果本地DNS服务器也没有对应的IP地址的记录，这时候它会把请求发至13台根域名服务器，根域名服务器收到请求后会判断这个域名是谁来授权管理，然后返回一个负责该顶级域名服务器的一个IP。本地DNS服务器收到IP信息后，再去联系顶级域名服务器。顶级域名服务器收到请求后，如果自己无法解析，再返回下一级域名服务器的IP，进行这样一个迭代查询之后，一直到子域名服务器。</p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/363/309/3633098501-5ba1abeddbee9_articlex" alt="clipboard.png"></p><p>这个时候有两种情况，第一种是子域名服务器返回了这个URL对应的IP地址，第二种情况是经过了CDN调度，如果目标网站使用了CDN服务，则需要在CDN服务商的平台设置相应的CNAME记录，这个记录是CDN服务厂商的一个DNS服务器的域名，子域名服务器会返回这个CNAME记录，本地DNS服务器得到这个记录后，会向CDN服务厂商的DNS服务器查询，然后CDN服务厂商的DNS服务器返回CDN服务厂商的一台GSLB设备（全局负载均衡设备）的IP，本地DNS服务器携带自身的IP地址和要查询的域名向GSLB设备发起请求，GSLB设备根据IP，以及要查询的域名，选择一台用户所属区域的区域负载均衡设备，区域负载均衡设备根据一定的算法和策略，会向GSLB设备返回一个最适合的CDN节点的IP地址，比如说返回一个距离用户最近的CDN节点，因为CDN服务器缓存了网站的源服务器的数据，而且会像源服务器一样，响应用户的请求. 而且它离用户更近，所以能获得更快的响应速度。最后本地DNS服务器拿到这个CDN节点的IP地址。</p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/673/033/673033083-5ba1ae16cd5a5_articlex" alt="clipboard.png"></p><p>得到IP后，会建立TCP连接，如果是https开头的URL，还会建立SSL连接，进行一个请求证书，生成对话密钥的过程。<br>然后开始进行HTTP请求，浏览器会先生成一个HTTP数据包，包含这次请求的信息，主要是请求方法、请求的说明和请求附带的数据，这个HTTP数据包经过传输层，头部加入双方的端口信息，被封装成一个TCP数据包，然后经过网络层，头部加入双方的IP地址信息，被封装成一个IP数据包，然后经过数据链路层，头部设置双方的MAC地址，封装成以太网数据包，最后变成二进制数据，传送到服务器。</p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/203/685/203685265-5ba1aeed692d0_articlex" alt="clipboard.png"></p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/421/982/4219826509-5ba1aeffef081_articlex" alt="clipboard.png"></p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/109/053/1090536528-5ba1af1768b92_articlex" alt="clipboard.png"></p><p>然后服务器作出响应，返回一个HTTP报文给浏览器，这个HTTP报文包含了状态行，消息报头，消息正文(就是HTML)。</p><h3 id="缓存获取页面"><a href="#缓存获取页面" class="headerlink" title="缓存获取页面"></a>缓存获取页面</h3><p>然后我们再看第二种情况，如果本地有缓存，浏览器会先判断缓存是否过期，通过Expires和Cache-Control字段来判断是否命中强制缓存，Expires是服务器返回该请求结果缓存的到期时间，Cache-Control的max-age会返回一个相对时间，因为无法确定客户端的时间是否与服务端的时间同步，所以同时存在时，Cache-Control的优先级更高。<br>如果强制缓存失效，进行协商缓存过程，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用本地缓存。</p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/985/379/985379536-5ba1b131944ef_articlex" alt="clipboard.png"></p><h3 id="渲染页面"><a href="#渲染页面" class="headerlink" title="渲染页面"></a>渲染页面</h3><p>在解析HTML的过程中，开始构建DOM树，当遇到外链资源比如CSS/JS，浏览器会并行下载 CSS 和 JavaScript，<br>CSS下载时异步，不会阻塞浏览器构建DOM树，但是会阻塞渲染，<br>JS会阻塞HTML的解析，需等待脚本下载完成并执行后才会继续解析HTML，<br>而且因为 JS 可能会查询 CSSOM，所以必须在下载 CSS 文件之前将其阻止，然后才能执行 JavaScript。<br>img图片类资源会异步下载，不会阻塞解析，下载完毕后直接用图片替换原有src的地方。</p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/198/716/1987167191-5ba1b1a7e5f80_articlex" alt="clipboard.png"></p><p>然后合并DOM树和CSSOM树，生成render树，从 DOM 树的根节点开始遍历每个可见节点，忽略脚本标记、元标记、display: none的节点，对于每个可见节点，为其找到适配的 CSSOM 规则并应用它们。<br>然后开始布局，从渲染树的根节点开始进行遍历，计算每个节点在网页的确切位置和大小。<br>布局完成后，将渲染树转换成屏幕上的像素，显示页面。</p><p><img src= "/img/loading.gif" data-lazy-src="https://image-static.segmentfault.com/775/090/77509042-5ba1b268d47cc_articlex" alt="clipboard.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端 </category>
+          
+          <category> 面试题类 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
