@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>面试提问思路总结</title>
+      <link href="2021/07/16/%E9%9D%A2%E8%AF%95%E6%8F%90%E9%97%AE%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/"/>
+      <url>2021/07/16/%E9%9D%A2%E8%AF%95%E6%8F%90%E9%97%AE%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<p>面试问题我分为这么几大块：</p><p><code>1 基础 html、css、js</code></p><p><code>2 浏览器HTTP相关</code></p><p><code>3 框架/构建相关 （vue、react、node、webpack...）</code></p><p><code>4 手写代码 （常见算法、其他编程题）</code></p><p><code>5 性能优化</code></p><p>下面列举一些常见面试提问思路</p><h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ul><li><p>盒模型</p></li><li><p>flex:1 含义 → 适用场景</p></li><li><p>响应式布局实现 → rem/em 区别、媒体查询 → 其他常见布局实现 → 居中</p></li><li><p>BFC原理 → 如何创建 → 应用场景</p></li><li><p>移动端像素知识与viewport知识</p></li><li><p>sass/less特性、区别 → 怎么自己封装样式库 → css-loader/style-loader区别</p></li></ul><h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><ul><li><p>作用域、原型链、闭包、继承、类型判断、V8 GC</p></li><li><p>基础API、ES6/7/8新特性 → babel原理</p></li><li><p>函数式编程、高阶函数、柯里化、递归、模块化</p></li><li><p>DOM操作、事件流、事件方法</p></li></ul><blockquote><p>PS: 异步单独拿出来列一下</p></blockquote><h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><ul><li><p>promise解决了什么问题、实现原理、使用场景</p></li><li><p>promise.all 概念、 怎么实现 → 用promise实现请求并发个数限制 → 希望即使前一个异步操作失败，也不要中断后面的异步操作，应该怎么做</p></li><li><p>说说async/await、generator → co.js 实现 → 三者对比，什么情况一定要用promise</p></li><li><p>说说JS异步编程 → JS事件循环、宏任务/微任务 → 说说react的setState → 说说node.js里的同步异步</p></li></ul><h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><ul><li><p>vue2的数据响应式原理 → vue2的缺陷、业务代码里面怎么处理、$set原理、怎么重写数组方法的、vue3怎么实现的、proxy优缺点、怎么处理vue3不支持IE → vue3了解哪些API → vue3做了哪些优化</p></li><li><p>生命周期 → 使用场景</p></li><li><p>组件data为什么是一个函数 → 工厂函数 → 构造函数 → new一个对象发生了什么</p></li><li><p>vue组件通信 → vuex原理</p></li><li><p>路由模式、实现原理 → 导航守卫 → 权限控制怎么做（页面和接口）→ 鉴权token</p></li><li><p>$nextTick 作用、实现原理 → 宏任务/微任务、 JS事件循环</p></li><li><p>key的作用 → diff算法思路、和react的区别</p></li><li><p>computed、watch 实现原理、区别、使用场景 → 说出三种watcher的区别</p></li><li><p>keep-alive 原理、使用场景</p></li><li><p>scoped 原理 → 如何改变第三方组件样式</p></li><li><p>组件封装有哪些思考</p></li></ul><h2 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h2><ul><li><p>构建流程、实现原理 → loader、plugin用到了哪些及其作用 → webpack5新特性 → 与vite的区别</p></li><li><p>tree-shaking 原理、做过哪些相关优化</p></li><li><p>热更新原理</p></li><li><p>打包速度和体积分别做过哪些优化</p></li></ul><h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><ul><li><p>说说浏览器页面加载过程 → 浏览器缓存 → 服务端渲染 → 跨域问题 → axios/fetch区别、做过哪些二次封装 → HTTP方法、状态码、HTTP1/HTTP2/HTTP3/HTTPS区别</p></li><li><p>xss/csrf原理、如何防御</p></li><li><p>做过哪些性能优化</p></li></ul><p><strong>像一些手写代码/算法题就不列举了，主要是提供一个大概的思路，可以按这个方向把自己的知识过一遍。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 面试 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> 面试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2021影视记录</title>
       <link href="2021/07/15/2021%E5%BD%B1%E8%A7%86%E8%AE%B0%E5%BD%95/"/>
       <url>2021/07/15/2021%E5%BD%B1%E8%A7%86%E8%AE%B0%E5%BD%95/</url>
