@@ -4,33 +4,6 @@
   
     
     <entry>
-      <title>vue3学习笔记</title>
-      <link href="2021/07/20/vue3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-      <url>2021/07/20/vue3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<p>对于熟悉vue2的小伙伴来说，如何在vue2的基础上快速全面地理解和掌握vue3呢？</p><blockquote><p>Q: 相对于vue2来说，vue3做了哪些改变?</p></blockquote><p>分为两个层面来说，一个是实现层面，一个是运用层面。</p><h2 id="实现层面"><a href="#实现层面" class="headerlink" title="实现层面"></a>实现层面</h2><h4 id="1-响应式原理的实现方式"><a href="#1-响应式原理的实现方式" class="headerlink" title="1. 响应式原理的实现方式"></a>1. 响应式原理的实现方式</h4><p>使用 proxy 代替 defineProperty（proxy不兼容IE）</p><blockquote><p>vue2的缺陷：<br>1 defineProperty无法监听数组方法变化，但是vue2对数组的八个方法做了hack<br>2 defineProperty可以监控数组下标变化，只是考虑到性能的问题，vue2放弃了这个特性，所以 <code>arr[1] = 3</code> 在vue2并不会触发数据更新<br>3 defineProperty无法监听数组长度变化<br>4 defineProperty无法检测到对象属性的新增或删除，vue2使用this.$set/this.$delete来解决</p></blockquote><h4 id="2-Diff算法的提升"><a href="#2-Diff算法的提升" class="headerlink" title="2. Diff算法的提升"></a>2. Diff算法的提升</h4><ul><li>将一个模板分成由结构指令分隔的嵌套“块”，当我们更新块中的节点时，我们不再需要递归遍历DOM树 - 该块内的动态绑定可以在一个平面数组中跟踪。</li><li>检测模板中的静态节点、子树甚至数据对象，在生成的代码中将它们提升到渲染函数之外。</li><li>为每个具有动态绑定的元素生成一个优化标志，运行时将获取这些标志提示并采用专用的快速路径。</li></ul><h4 id="3-更好的Tree-shaking"><a href="#3-更好的Tree-shaking" class="headerlink" title="3. 更好的Tree-shaking"></a>3. 更好的Tree-shaking</h4><p>一些全局API改为按需引入</p><h4 id="4-更好的Typescript支持"><a href="#4-更好的Typescript支持" class="headerlink" title="4. 更好的Typescript支持"></a>4. 更好的Typescript支持</h4><p>1 vue3是用TypeScript编写的库，可以享受到自动的类型定义提示<br>2 支持TSX</p><h2 id="运用层面"><a href="#运用层面" class="headerlink" title="运用层面"></a>运用层面</h2><h4 id="1-Composition-API"><a href="#1-Composition-API" class="headerlink" title="1. Composition API"></a>1. Composition API</h4><p>混入(mixin) 将不再作为推荐使用，Composition API可以实现更灵活且无副作用的复用代码。</p><ul><li>setup()</li><li>reactive、ref 与 toRefs</li><li>生命周期</li><li>watch 与 watchEffect<br>…</li></ul><h4 id="2-Fragment"><a href="#2-Fragment" class="headerlink" title="2. Fragment"></a>2. Fragment</h4><p>template中允许写多个根节点。</p><h4 id="3-Teleport"><a href="#3-Teleport" class="headerlink" title="3. Teleport"></a>3. Teleport</h4><p>可以将组件渲染的内容传送到任何指定的地方。</p><h4 id="4-Suspense"><a href="#4-Suspense" class="headerlink" title="4. Suspense"></a>4. Suspense</h4><p>异步请求组件。</p><blockquote><p>参考：<br><a href="https://juejin.cn/post/6940454764421316644">https://juejin.cn/post/6940454764421316644</a><br><a href="https://juejin.cn/post/6844904134303301645">https://juejin.cn/post/6844904134303301645</a><br><a href="https://juejin.cn/post/6976400439793172487">https://juejin.cn/post/6976400439793172487</a><br><a href="https://v3.vuejs.org/guide/composition-api-introduction.html#standalone-computed-properties">https://v3.vuejs.org/guide/composition-api-introduction.html#standalone-computed-properties</a></p></blockquote>]]></content>
-      
-      
-      <categories>
-          
-          <category> 前端 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 前端 </tag>
-            
-            <tag> vue3 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>面试提问思路总结</title>
       <link href="2021/07/16/%E9%9D%A2%E8%AF%95%E6%8F%90%E9%97%AE%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/"/>
       <url>2021/07/16/%E9%9D%A2%E8%AF%95%E6%8F%90%E9%97%AE%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/</url>
@@ -100,6 +73,60 @@
         <tags>
             
             <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue3学习笔记</title>
+      <link href="2020/08/21/vue3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>2020/08/21/vue3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<p>对于熟悉vue2的小伙伴来说，如何在vue2的基础上快速全面地理解和掌握vue3呢？</p><blockquote><p>Q: 相对于vue2来说，vue3做了哪些改变?</p></blockquote><p>分为两个层面来说，一个是实现层面，一个是运用层面。</p><h2 id="实现层面"><a href="#实现层面" class="headerlink" title="实现层面"></a>实现层面</h2><h4 id="1-响应式原理的实现方式"><a href="#1-响应式原理的实现方式" class="headerlink" title="1. 响应式原理的实现方式"></a>1. 响应式原理的实现方式</h4><p>使用 proxy 代替 defineProperty（proxy不兼容IE）</p><blockquote><p>vue2的缺陷：<br>1 defineProperty无法监听数组方法变化，但是vue2对数组的八个方法做了hack<br>2 defineProperty可以监控数组下标变化，只是考虑到性能的问题，vue2放弃了这个特性，所以 <code>arr[1] = 3</code> 在vue2并不会触发数据更新<br>3 defineProperty无法监听数组长度变化<br>4 defineProperty无法检测到对象属性的新增或删除，vue2使用this.$set/this.$delete来解决</p></blockquote><h4 id="2-Diff算法的提升"><a href="#2-Diff算法的提升" class="headerlink" title="2. Diff算法的提升"></a>2. Diff算法的提升</h4><ul><li>将一个模板分成由结构指令分隔的嵌套“块”，当我们更新块中的节点时，我们不再需要递归遍历DOM树 - 该块内的动态绑定可以在一个平面数组中跟踪。</li><li>检测模板中的静态节点、子树甚至数据对象，在生成的代码中将它们提升到渲染函数之外。</li><li>为每个具有动态绑定的元素生成一个优化标志，运行时将获取这些标志提示并采用专用的快速路径。</li></ul><h4 id="3-更好的Tree-shaking"><a href="#3-更好的Tree-shaking" class="headerlink" title="3. 更好的Tree-shaking"></a>3. 更好的Tree-shaking</h4><p>一些全局API改为按需引入</p><h4 id="4-更好的Typescript支持"><a href="#4-更好的Typescript支持" class="headerlink" title="4. 更好的Typescript支持"></a>4. 更好的Typescript支持</h4><p>1 vue3是用TypeScript编写的库，可以享受到自动的类型定义提示<br>2 支持TSX</p><h2 id="运用层面"><a href="#运用层面" class="headerlink" title="运用层面"></a>运用层面</h2><h4 id="1-Composition-API"><a href="#1-Composition-API" class="headerlink" title="1. Composition API"></a>1. Composition API</h4><p>混入(mixin) 将不再作为推荐使用，Composition API可以实现更灵活且无副作用的复用代码。</p><ul><li>setup()</li><li>reactive、ref 与 toRefs</li><li>生命周期</li><li>watch 与 watchEffect<br>…</li></ul><h4 id="2-Fragment"><a href="#2-Fragment" class="headerlink" title="2. Fragment"></a>2. Fragment</h4><p>template中允许写多个根节点。</p><h4 id="3-Teleport"><a href="#3-Teleport" class="headerlink" title="3. Teleport"></a>3. Teleport</h4><p>可以将组件渲染的内容传送到任何指定的地方。</p><h4 id="4-Suspense"><a href="#4-Suspense" class="headerlink" title="4. Suspense"></a>4. Suspense</h4><p>异步请求组件。</p><blockquote><p>参考：<br><a href="https://juejin.cn/post/6940454764421316644">https://juejin.cn/post/6940454764421316644</a><br><a href="https://juejin.cn/post/6844904134303301645">https://juejin.cn/post/6844904134303301645</a><br><a href="https://juejin.cn/post/6976400439793172487">https://juejin.cn/post/6976400439793172487</a><br><a href="https://v3.vuejs.org/guide/composition-api-introduction.html#standalone-computed-properties">https://v3.vuejs.org/guide/composition-api-introduction.html#standalone-computed-properties</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> vue3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>typescript学习笔记</title>
+      <link href="2019/05/10/typescript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>2019/05/10/typescript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="typescript"><a href="#typescript" class="headerlink" title="typescript"></a>typescript</h2><p>JavaScript 是动态类型，没有编译阶段，运行时才会进行类型检查</p><p>TypeScript 是静态类型，有编译阶段，译阶段就会进行类型检查</p><p>即 Ts  → 编译阶段（类型检查） → Js</p><p>Ts 完全兼容 Js，可以和 Js 共存</p><h4 id="any-任意值"><a href="#any-任意值" class="headerlink" title="any 任意值"></a>any 任意值</h4><h4 id="void-没有任何返回值的函数"><a href="#void-没有任何返回值的函数" class="headerlink" title="void 没有任何返回值的函数"></a>void 没有任何返回值的函数</h4><h4 id="自动类型推论"><a href="#自动类型推论" class="headerlink" title="自动类型推论"></a>自动类型推论</h4><p>如果定义的时候没有赋值，不管之后有没有赋值，都会被推断成 any 类型而完全不被类型检查</p><h4 id="联合类型"><a href="#联合类型" class="headerlink" title="联合类型"></a>联合类型</h4><p><code>let myFavoriteNumber: string | number;</code></p><h4 id="接口（抽象类）Interface"><a href="#接口（抽象类）Interface" class="headerlink" title="接口（抽象类）Interface"></a>接口（抽象类）Interface</h4><p>赋值的时候，变量的形状必须和接口的形状保持一致<br>1 可以用可选属性 age?: number;<br>2 可以添加任意属性 [propName: string]: any;<br>一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集<br>3 只读属性，只能在创建的时候被赋值 readonly id: number;</p><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    readonly<span class="built_in"> id</span>:<span class="built_in"> number</span>;</span><br><span class="line">   <span class="built_in"> name</span>:<span class="built_in"> string</span>;</span><br><span class="line">    age?:<span class="built_in"> number</span>;</span><br><span class="line">    [propName:<span class="built_in"> string</span>]: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tom: Person = &#123;</span><br><span class="line">   <span class="built_in"> id</span>: <span class="number">89757</span>,</span><br><span class="line">   <span class="built_in"> name</span>: <span class="string">&#x27;Tom&#x27;</span>,</span><br><span class="line">    gender: <span class="string">&#x27;male&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">tom<span class="built_in">.id</span> = <span class="number">9527</span>;</span><br><span class="line"></span><br><span class="line">// index.ts(<span class="number">14</span>,<span class="number">5</span>):<span class="built_in"> error</span> TS254<span class="number">0</span>: Cannot assign <span class="keyword">to</span> <span class="string">&#x27;id&#x27;</span> because it <span class="literal">is</span> a constant <span class="keyword">or</span> a read-only property.</span><br></pre></td></tr></table></figure><h4 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h4><p><code>let fibonacci: number[] = [1, 1, 2, 3, 5];</code></p><h4 id="数组泛型"><a href="#数组泛型" class="headerlink" title="数组泛型"></a>数组泛型</h4><p><code>let fibonacci: Array&lt;number&gt; = [1, 1, 2, 3, 5];</code><br>或者用any</p><h4 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h4><ul><li><p>函数声明<br>对输入输出进行约束（参数多或少都不被允许）<br><code>function sum(x: number, y: number): number &#123; return x + y; &#125;</code></p></li><li><p>函数表达式<br><code>let mySum: (x: number, y: number) =&gt; number = function (x: number, y: number): number &#123; return x + y; &#125;;</code></p><blockquote><p>注意不要混淆了 TypeScript 中的 =&gt; 和 ES6 中的 =&gt;。<br>在 TypeScript 的类型定义中，=&gt; 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型。<br>在 ES6 中，=&gt; 叫做箭头函数。</p></blockquote></li><li><p>可选参数 (可选参数后面不允许再出现必须参数了)<br><code>function buildName(firstName: string, lastName?: string) &#123; &#125;</code></p></li><li><p>参数默认值<br>TypeScript 会将添加了默认值的参数识别为可选参数，此时就不受「可选参数必须接在必需参数后面」的限制了。<br><code>function buildName(firstName: string, lastName: string = &#39;Cat&#39;) &#123; &#125;</code></p></li><li><p>接口定义函数形状<br><code>interface SearchFunc &#123;   (source: string, subString: string): boolean; &#125;</code></p></li><li><p>重载<br>即重复定义函数多次，会优先从最前面的函数定义开始匹配。</p></li></ul><h4 id="类型断言"><a href="#类型断言" class="headerlink" title="类型断言"></a>类型断言</h4><p>手动指定一个值的类型 <string>something<br><code>window as any</code></p><h4 id="声明文件"><a href="#声明文件" class="headerlink" title="声明文件"></a>声明文件</h4><p><code>declare var jQuery: (selector: string) =&gt; any;</code><br>declare var 并没有真的定义一个变量，只是定义了全局变量 jQuery 的类型，仅仅会用于编译时的检查，在编译结果中会被删除。<br>通常我们会把声明语句放到一个单独的文件（jQuery.d.ts）中，这就是声明文件。<br>声明文件必需以 .d.ts 为后缀。<br>推荐使用 @types 统一管理第三方库的声明文件。当第三方库没有提供声明文件时，我们就需要自己书写声明文件了。</p><blockquote><p>参考：<br><a href="https://ts.xcatliu.com/">https://ts.xcatliu.com/</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> typescript </tag>
             
         </tags>
       
